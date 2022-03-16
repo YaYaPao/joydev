@@ -41,9 +41,8 @@ async function publish(pkg) {
     choosedPackage = await question(`Which package do you want to publish?\n`, {
       choices: packages,
     })
-    const path = `./packages/${choosedPackage}`
+    const path = `packages/${choosedPackage}`
     log(chalk.bgGray.cyanBright(`\nCurrent package is ${choosedPackage}\n\n`))
-    await $`cd ${path}`
-    await $`pnpm run zx`
+    await $`pnpm run --prefix ${path} zx`
   }
 }
