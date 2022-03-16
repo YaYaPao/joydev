@@ -1,5 +1,5 @@
 {
-  "extends": "./node_modules/lintdd/dist/reference/tsconfig4React",
+  "extends": "node_modules/lintdd/dist/reference/tsconfig4React",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

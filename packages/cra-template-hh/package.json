@@ -26,5 +26,8 @@
   ],
   "scripts": {
     "zx": "zx control.mjs"
+  },
+  "volta": {
+    "node": "17.7.1"
   }
 }
