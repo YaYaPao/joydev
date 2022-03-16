@@ -1,0 +1,10 @@
+{
+  "extends": "./node_modules/lintdd/dist/reference/tsconfig4React",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": ["src", "configs/**/*"]
+}
