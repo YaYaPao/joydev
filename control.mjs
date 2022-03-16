@@ -1,9 +1,10 @@
 #!/usr/bin/env zx
 import chalk from 'chalk'
+import { existsSync } from 'fs'
 
 const log = console.log
 const ALERT_MESSAGE = '\nPlease confirm your input!\n'
-const cmds = ['publish']
+const cmds = ['publish', 'initcrapp']
 const packages = ['cra-template-hh']
 const [nodePath, zxPath, scriptPath, ...restData] = process.argv
 
@@ -23,6 +24,9 @@ switch (target) {
   case 'publish':
     publish(...rest)
     break
+  case 'initcrapp':
+    initcrapp(...rest)
+    break
   default:
     log(ALERT_MESSAGE)
     log(`Support command ===> ${cmds.join(' ')}`)
@@ -34,6 +38,15 @@ async function getPackageVersion() {
   return (pkg && pkg.version) || undefined
 }
 
+async function initcrapp() {
+  const hasCrapp = await existsSync('crapp')
+  if (hasCrapp) {
+    await $`rm -rf crapp`
+  }
+  await $`pnpx create-react-app crapp --template hh`
+}
+
+// 发布指定 package
 async function publish(pkg) {
   let choosedPackage = pkg
   // 如果未传入，则提供选择
@@ -43,6 +56,6 @@ async function publish(pkg) {
     })
     const path = `packages/${choosedPackage}`
     log(chalk.bgGray.cyanBright(`\nCurrent package is ${choosedPackage}\n\n`))
-    await $`pnpm run --prefix ${path} zx`
+    await $`pnpm run --prefix ${path} zx rls patch`
   }
 }
