@@ -4,7 +4,7 @@
   "description": "Development time hh!",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "zx": "zx control.mjs"
   },
   "repository": {
     "type": "git",
