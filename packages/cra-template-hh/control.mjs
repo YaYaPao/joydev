@@ -67,5 +67,7 @@ async function release(version) {
     }
   }
   await $`pnpm version ${targetVersion}`
+  await $`git add package.json`
+  await $`git commit -m "rls: cra-template-hh ${targetVersion}"`
   await $`pnpm publish`
 }
