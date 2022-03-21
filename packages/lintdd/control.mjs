@@ -66,11 +66,16 @@ async function release(version) {
           targetVersion = versionArr.join('.')
           break
         case 'minor':
+          // minor + 1, patch version 置为 0
           versionArr[1] = Number(versionArr[1]) + 1
+          versionArr[2] = 0
           targetVersion = versionArr.join('.')
           break
         case 'major':
+          // major + 1, patch version 置为 0
           versionArr[0] = Number(versionArr[0]) + 1
+          versionArr[1] = 0
+          versionArr[2] = 0
           targetVersion = versionArr.join('.')
           break
         default:
@@ -81,6 +86,8 @@ async function release(version) {
     }
   }
   await $`pnpm version ${targetVersion}`
+  await $`git add package.json`
+  await $`git commit -m "rls: lintdd ${targetVersion}"`
   await $`pnpm publish`
 }
 
