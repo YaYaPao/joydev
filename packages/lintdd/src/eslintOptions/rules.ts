@@ -38,6 +38,36 @@ export const vue2Rules = {
   'vue/no-unused-vars': 'off',
 }
 
+export const vue3Rules = {
+  '@typescript-eslint/ban-ts-ignore': 'off',
+  '@typescript-eslint/explicit-function-return-type': 'off',
+  '@typescript-eslint/no-explicit-any': 'off',
+  '@typescript-eslint/no-var-requires': 'off',
+  '@typescript-eslint/no-empty-function': 'off',
+  'vue/custom-event-name-casing': 'off',
+  'no-use-before-define': 'off',
+  '@typescript-eslint/no-use-before-define': 'off',
+  '@typescript-eslint/ban-ts-comment': 'off',
+  '@typescript-eslint/ban-types': 'off',
+  '@typescript-eslint/no-non-null-assertion': 'off',
+  '@typescript-eslint/explicit-module-boundary-types': 'off',
+  '@typescript-eslint/no-unused-vars': [
+    'error',
+    {
+      argsIgnorePattern: '^_',
+      varsIgnorePattern: '^_',
+    },
+  ],
+  'vue/no-shared-component-data': 'error',
+  'vue/require-v-for-key': 'error',
+  'vue/jsx-uses-vars': 'error',
+  'vue/no-async-in-computed-properties': 'error',
+  'vue/no-side-effects-in-computed-properties': 'error',
+  'vue/no-unused-components': 'warn',
+  'vue/no-use-v-if-with-v-for': 'warn',
+  'vue/no-unused-vars': 'off',
+}
+
 export const eslintRules = {
   semi: ['error', 'never'],
   strict: ['error', 'never'],

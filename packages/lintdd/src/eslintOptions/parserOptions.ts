@@ -32,3 +32,13 @@ export const Vue2ParserOptions = {
   sourceType: 'module',
   ecmaVersion: 2016,
 }
+
+export const Vue3ParserOptions = {
+  parser: '@typescript-eslint/parser',
+  ecmaVersion: 2020,
+  sourceType: 'module',
+  jsxPragma: 'React',
+  ecmaFeatures: {
+    jsx: true,
+  },
+}
