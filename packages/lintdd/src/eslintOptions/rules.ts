@@ -51,13 +51,6 @@ export const vue3Rules = {
   '@typescript-eslint/ban-types': 'off',
   '@typescript-eslint/no-non-null-assertion': 'off',
   '@typescript-eslint/explicit-module-boundary-types': 'off',
-  '@typescript-eslint/no-unused-vars': [
-    'error',
-    {
-      argsIgnorePattern: '^_',
-      varsIgnorePattern: '^_',
-    },
-  ],
   'vue/no-shared-component-data': 'error',
   'vue/require-v-for-key': 'error',
   'vue/jsx-uses-vars': 'error',
