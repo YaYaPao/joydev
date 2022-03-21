@@ -4,7 +4,7 @@ import { reactRules, eslintRules, prettierConflictRules } from './eslintOptions/
 import { isTsProject } from './utils'
 
 module.exports = {
-  extends: ['prettier', 'plugin:react/recommended'],
+  extends: ['plugin:react/recommended', 'plugin:prettier/recommended'],
   parser: '@babel/eslint-parser',
   plugins: ['react', 'react-hooks'],
   // 顶级域变量
@@ -42,7 +42,7 @@ module.exports = {
           files: ['**/*.{ts,tsx}'],
           parser: '@typescript-eslint/parser',
           rules: tslintRules,
-          extends: ['prettier', 'plugin:@typescript-eslint/recommended'],
+          extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
         },
       ]
     : [],

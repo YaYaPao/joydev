@@ -2,7 +2,7 @@ import { eslintRules, prettierConflictRules, vue2Rules } from './eslintOptions/r
 import { Vue2ParserOptions } from './eslintOptions/parserOptions'
 
 module.exports = {
-  extends: ['plugin:vue/essential', 'prettier', 'eslint:recommended'],
+  extends: ['plugin:vue/essential', 'eslint:recommended', 'plugin:prettier/recommended'],
   parser: 'vue-eslint-parser',
   plugins: ['vue'],
   // 顶级域变量
