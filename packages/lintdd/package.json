@@ -1,6 +1,6 @@
 {
   "name": "lintdd",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "X-lint for frontend!",
   "private": false,
   "main": "dist/index.js",
