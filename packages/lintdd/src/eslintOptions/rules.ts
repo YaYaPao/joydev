@@ -3,8 +3,8 @@ export const reactRules = {
   'react/jsx-props-no-spreading': 0,
   'react/state-in-constructor': 0,
   'react/static-property-placement': 0,
-  // 对 props, state 和 contenxt 强制使用解构语法，不灵活，会存在 props 内 state 命名一致的情况
-  'react/destructuring-assignment': ['warn', 'never'],
+  // 对 props 进行解构，要避免 state 和 props 内变量命名一致的问题
+  'react/destructuring-assignment': ['warn', 'always'],
   'react/jsx-filename-extension': 'off',
   'react/no-array-index-key': 'warn',
   'react-hooks/rules-of-hooks': 'error',
