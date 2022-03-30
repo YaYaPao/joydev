@@ -1,10 +1,9 @@
 import tslintRules from './eslintOptions/tslintRules'
 import { eslintRules, prettierConflictRules } from './eslintOptions/rules'
-import { isTsProject } from './utils'
 
 module.exports = {
-  extends: ['plugin:react/recommended', 'plugin:prettier/recommended'],
-  parser: '@babel/eslint-parser',
+  extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
+  parser: '@typescript-eslint/parser',
   // 顶级域变量
   env: {
     browser: true,
@@ -16,13 +15,14 @@ module.exports = {
   },
   rules: {
     ...eslintRules,
+    ...tslintRules,
     ...prettierConflictRules,
   },
   settings: {
     // support import modules from TypeScript files in JavaScript files
     'import/resolver': {
       node: {
-        extensions: isTsProject ? ['.js', '.ts', '.d.ts'] : ['.js'],
+        extensions: ['.js', '.ts', '.d.ts'],
       },
     },
     'import/parsers': {
@@ -33,14 +33,4 @@ module.exports = {
     // Add polyfills to the settings section of your eslint config. Append the name of the object and the property if one exists
     polyfills: ['fetch', 'Promise', 'URL', 'object-assign'],
   },
-  overrides: isTsProject
-    ? [
-        {
-          files: ['**/*.{ts}'],
-          parser: '@typescript-eslint/parser',
-          extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
-          rules: tslintRules,
-        },
-      ]
-    : [],
 }
