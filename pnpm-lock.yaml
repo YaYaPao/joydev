@@ -115,6 +115,7 @@ importers:
       eslint-plugin-react: 7.29.4_eslint@8.11.0
       eslint-plugin-react-hooks: 4.3.0_eslint@8.11.0
       eslint-plugin-vue: 8.5.0_eslint@8.11.0
+      prettier: 2.6.0
       stylelint: 14.6.0
       stylelint-config-css-modules: 3.0.0_stylelint@14.6.0
       stylelint-config-prettier: 9.0.3_stylelint@14.6.0
@@ -125,7 +126,6 @@ importers:
       yargs-parser: 21.0.1
     devDependencies:
       '@types/node': 17.0.21
-      prettier: 2.6.0
 
 packages:
 
