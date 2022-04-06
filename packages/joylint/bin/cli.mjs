@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import yParser from 'yargs-parser'
 import chalk from 'chalk'
 import { readFileSync, writeFileSync } from 'fs'
 import { exec } from 'child_process'
@@ -8,17 +7,18 @@ import { argv } from 'process'
 import * as path from 'path'
 
 const log = console.log
-const args = yParser(process.argv.slice(2))
-const params = args._[0]
+const args = process.argv.slice(2)
+const params = args[0]
 // 在 esm 内读取 *.json 文件
 const pkg = JSON.parse(readFileSync('./package.json', 'utf-8'))
 const runVersion = process.versions
 // 提取当前运行时 node 版本号的首字母
 const nodeV = runVersion.node.split('.')[0]
-const controlPath = path.join(process.cwd() || '.', './node_modules/lintdd/')
+// 指定执行脚本路径
+const controlPath = path.join(process.cwd() || '.', './node_modules/joylint/')
 
 const helpInfo = `
-${chalk.greenBright(`Hi, thanks for using lintdd~✨`)}
+${chalk.greenBright(`Hi, thanks for using joylint~✨`)}
 
 ${chalk.blueBright(`Usage: `)} pnpx|npx lintdd <command> [options]
 
