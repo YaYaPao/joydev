@@ -1,5 +1,3 @@
-# lintdd
+# joylint
 
-X-lint for React!
-
-## eslint
+A lint rules toolbox for Frontend!

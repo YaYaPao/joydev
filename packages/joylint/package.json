@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "files": [
     "dist",
-    "cli.mjs",
+    "bin",
     "control.mjs"
   ],
   "bin": {
@@ -25,12 +25,12 @@
     "prettier",
     "stylelint"
   ],
-  "author": "Y-lonelY",
+  "author": "YaYaPao",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Y-lonelY/lintool/issues"
+    "url": "https://github.com/YaYaPao/joydev/issues"
   },
-  "homepage": "https://github.com/Y-lonelY/lintool#readme",
+  "homepage": "https://github.com/YaYaPao/joydev/blob/main/packages/joylint/README.md",
   "dependencies": {
     "@babel/core": "^7.17.5",
     "@babel/eslint-parser": "^7.17.0",
