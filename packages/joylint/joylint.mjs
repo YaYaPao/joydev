@@ -6,6 +6,7 @@ const log = console.log
 const ALERT_MESSAGE = '\nPlease confirm your input!\n'
 const cmds = ['husky']
 const [nodePath, zxPath, scriptPath, ...restData] = process.argv
+const workPath = process.env.originalWorkPath || process.cwd() || '.'
 
 let choose
 if (!restData || restData.length === 0) {
@@ -30,8 +31,8 @@ switch (target) {
 
 // 查看当前的包管理工具
 async function getPkgManager() {
-  const isPNpm = await fs.existsSync(path.join(process.cwd() || '.', './pnpm-lock.yaml'))
-  const isYarn = await fs.existsSync(path.join(process.cwd() || '.', './yarn.lock'))
+  const isPNpm = await fs.existsSync(path.join(workPath, './pnpm-lock.yaml'))
+  const isYarn = await fs.existsSync(path.join(workPath, './yarn.lock'))
   if (isPNpm) return 'pnpm'
   if (isYarn) return 'yarn'
   return 'npm'
@@ -40,32 +41,38 @@ async function getPkgManager() {
 async function initHusky(params) {
   const hasCmt = params === 'cmt'
   const pm = await getPkgManager()
-  const isLintddDir = await fs.existsSync(path.join(process.cwd() || '.', '.lintdd'))
+  const existJoylintDir = await fs.existsSync(path.join(workPath, '.joylint'))
   const verifyCommitPath = await path.join(
-    process.cwd() || '.',
-    'node_modules/lintdd/dist/husky/verifyCommit.mjs',
+    workPath,
+    'node_modules/joylint/dist/husky/verifyCommit.js',
   )
-  const lintddPath = await path.join(process.cwd() || '.', '.lintdd')
+  // process.cwd() 返回当前执行命令的目录，由于通过 cli 执行 pnpm run，因此当前工作目录应该为 node_modules/joylint
+  const joylintPath = await path.join(workPath, '.joylint')
 
-  if (!isLintddDir) {
-    await $`mkdir .lintdd`
-    await $`cp ${verifyCommitPath} ${lintddPath}`
+  log(chalk.cyan(`Current joylintPath is ${joylintPath}!\n`))
+
+  if (!existJoylintDir) {
+    await $`mkdir ${joylintPath}`
   }
+
+  await $`cp ${verifyCommitPath} ${joylintPath}`
+
+  log(chalk.cyan(`Current node package manager is ${pm}, start to install husky!\n`))
 
   switch (pm) {
     case 'pnpm':
       await $`pnpm add husky -D`
       await $`pnpx husky install`
-      hasCmt && (await $`pnpx husky add .husky/commit-msg "node .lintdd/verifyCommit.mjs"`)
+      hasCmt && (await $`pnpx husky add .husky/commit-msg "node .joylint/verifyCommit.js"`)
       break
     case 'yarn':
       await $`yarn add husky -D`
       await $`yarn husky install`
-      hasCmt && (await $`yarn husky add .husky/commit-msg "node .lintdd/verifyCommit.mjs"`)
+      hasCmt && (await $`yarn husky add .husky/commit-msg "node .joylint/verifyCommit.js"`)
       break
     default:
-      await $`npm add husky -D`
+      await $`npm install husky -D`
       await $`npx husky install`
-      hasCmt && (await $`npx husky add .husky/commit-msg "node .lintdd/verifyCommit.mjs"`)
+      hasCmt && (await $`npx husky add .husky/commit-msg "node .joylint/verifyCommit.js"`)
   }
 }

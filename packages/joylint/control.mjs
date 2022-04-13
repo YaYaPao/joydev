@@ -42,7 +42,7 @@ async function getPackageVersion() {
 async function build() {
   await $`rm -rf dist/*`
   await $`tsc --build tsconfig.json`
-  await $`cp ./lintdd.mjs ./dist/`
+  await $`cp ./joylint.mjs ./dist/`
   log(chalk.white.bgGreen.bold(`Successfully built at ${Date.now()}`))
 }
 
@@ -87,7 +87,7 @@ async function release(version) {
   }
   await $`pnpm version ${targetVersion}`
   await $`git add package.json`
-  await $`git commit -m "rls: lintdd ${targetVersion}"`
+  await $`git commit -m "rls: joylint ${targetVersion}"`
   await $`pnpm publish`
 }
 

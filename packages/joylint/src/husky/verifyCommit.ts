@@ -6,7 +6,7 @@ import { readFileSync } from 'fs'
 const msgPath = resolve('./.git/COMMIT_EDITMSG')
 const msg = readFileSync(msgPath, 'utf-8').trim()
 
-const commitRE = /^(revert: )?(feat|improve|fix|docs|ref|chore|locale|release)(\(.+\))?: .{1,50}/
+const commitRE = /^(revert: )?(feat|perf|fix|docs|ref|chore|locale|rls)(\(.+\))?: .{1,50}/
 
 if (!commitRE.test(msg)) {
   console.error(
@@ -19,24 +19,22 @@ if (!commitRE.test(msg)) {
         'Proper commit message format is required for automated changelog generation. Examples:\n\n',
       ) +
       '\n    ' +
-      chalk.green("\uD83D\uDCA5 feat(feature): add 'comments' option") +
+      chalk.green("feat(feature): add 'comments' option") +
       '\n    ' +
-      chalk.green('\ud83c\udf0a improve: make some improvements') +
+      chalk.green('perf(performance): make some performance improvements') +
       '\n    ' +
-      chalk.green('\uD83D\uDC1B fix: fix some bug') +
+      chalk.green('fix: fix bug') +
       '\n    ' +
-      chalk.green('\uD83D\uDCDD docs: add some docs') +
+      chalk.green('docs: add/update some docs') +
       '\n    ' +
-      chalk.green('\uD83D\uDCDD ref(refactor): make some refactor works') +
+      chalk.green('ref(refactor): make some refactor works') +
       '\n    ' +
-      chalk.green('\uD83C\uDF37 UI(style): better styles') +
+      chalk.green('style: better styles') +
       '\n    ' +
-      chalk.green('\uD83C\uDFF0 chore(compiler): Made some changes to the scaffolding') +
+      chalk.green('chore(compiler): Made some changes to the scaffolding') +
       '\n    ' +
-      chalk.green(
-        '\uD83C\uDF10 locale(compiler): Made a small contribution to internationalization',
-      ) +
-      chalk.green('\uD83C\uDF10 rls(release): Made a release version') +
+      chalk.green('locale(compiler): Made a small contribution to internationalization') +
+      chalk.green('rls(release): Made a release version') +
       '\n\n' +
       chalk.red('Normalize is required and having fun in coding~\n'),
   )
