@@ -70,6 +70,7 @@ export const eslintRules = {
   'class-methods-use-this': 0,
   'no-confusing-arrow': 0,
   'linebreak-style': 0,
+  'no-unused-vars': 0,
 }
 
 // Conflict with prettier
