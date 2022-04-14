@@ -217,7 +217,7 @@ importers:
 
   packages/test:
     specifiers:
-      joylint: workspace:^1.1.0
+      joylint: workspace:^1.1.2
       zx: ^6.0.7
     dependencies:
       joylint: link:../joylint

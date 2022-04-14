@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "joylint": "workspace:^1.1.0"
+    "joylint": "workspace:^1.1.2"
   },
   "devDependencies": {
     "zx": "^6.0.7"
