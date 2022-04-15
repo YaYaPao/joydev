@@ -7,7 +7,8 @@
   "files": [
     "dist",
     "bin",
-    "control.mjs"
+    "control.mjs",
+    "joylint.mjs"
   ],
   "bin": {
     "joylint": "./bin/cli.mjs"

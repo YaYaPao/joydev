@@ -28,7 +28,7 @@ importers:
       '@types/react': ^17.0.20
       '@types/react-dom': ^17.0.9
       dayjs: ^1.10.8
-      joylint: workspace:^1.1.1
+      joylint: ^1.1.2
       react: ^17.0.2
       react-dom: ^17.0.2
       react-scripts: 5.0.0
@@ -47,7 +47,7 @@ importers:
       react-scripts: 5.0.0_react@17.0.2+typescript@4.6.2
       typescript: 4.6.2
     devDependencies:
-      joylint: link:../packages/joylint
+      joylint: 1.1.2
 
   packages/cra-example:
     specifiers:
@@ -7240,6 +7240,38 @@ packages:
       - ts-node
       - utf-8-validate
     dev: false
+
+  /joylint/1.1.2:
+    resolution: {integrity: sha512-B8o1wMF2AbAKv8Zv3YNxhkFYyD9e8h7i/HjMT5Vth1cK79NdCHEGKrr7CG2+6/YEN+JY8xQMqiiqZqFHV36ITA==}
+    hasBin: true
+    dependencies:
+      '@babel/core': 7.17.7
+      '@babel/eslint-parser': 7.17.0_@babel+core@7.17.7+eslint@8.11.0
+      '@babel/plugin-proposal-class-properties': 7.16.7_@babel+core@7.17.7
+      '@babel/plugin-proposal-decorators': 7.17.2_@babel+core@7.17.7
+      '@babel/preset-env': 7.16.11_@babel+core@7.17.7
+      '@babel/preset-react': 7.16.7_@babel+core@7.17.7
+      '@babel/preset-typescript': 7.16.7_@babel+core@7.17.7
+      '@typescript-eslint/eslint-plugin': 5.15.0_f2c49ce7d0e93ebcfdb4b7d25b131b28
+      '@typescript-eslint/parser': 5.15.0_eslint@8.11.0+typescript@4.6.2
+      chalk: 5.0.1
+      eslint: 8.11.0
+      eslint-config-prettier: 8.5.0_eslint@8.11.0
+      eslint-plugin-prettier: 4.0.0_68edcf5670f37721baf5d2cac6124e4d
+      eslint-plugin-react: 7.29.4_eslint@8.11.0
+      eslint-plugin-react-hooks: 4.3.0_eslint@8.11.0
+      eslint-plugin-vue: 8.5.0_eslint@8.11.0
+      prettier: 2.6.0
+      stylelint: 14.6.0
+      stylelint-config-css-modules: 3.0.0_stylelint@14.6.0
+      stylelint-config-prettier: 9.0.3_stylelint@14.6.0
+      stylelint-config-standard: 25.0.0_stylelint@14.6.0
+      stylelint-declaration-block-no-ignored-properties: 2.5.0_stylelint@14.6.0
+      typescript: 4.6.2
+      vue-eslint-parser: 8.3.0_eslint@8.11.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
 
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
