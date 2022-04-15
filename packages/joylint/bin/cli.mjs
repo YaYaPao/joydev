@@ -2,9 +2,8 @@
 
 import chalk from 'chalk'
 import { readFileSync, writeFileSync } from 'fs'
-import { exec } from 'child_process'
 import { argv } from 'process'
-import { preprocessArgs } from './utils.mjs'
+import { preprocessArgs, getPkgManager, execSyncCommand } from './utils.mjs'
 import * as path from 'path'
 
 const log = console.log
@@ -17,6 +16,8 @@ const runVersion = process.versions
 const nodeV = runVersion.node.split('.')[0]
 // 指定执行脚本路径
 const controlPath = path.join(process.cwd() || '.', './node_modules/joylint/')
+// package manager
+const pkgManager = getPkgManager(process.cwd())
 
 const helpInfo = `
 ${chalk.greenBright(`Hi, thanks for using joylint~✨`)}
@@ -42,33 +43,43 @@ if (nodeV <= 8) {
   process.exit(1)
 }
 
-function execCommand(cmd) {
-  if (!cmd) {
-    log(chalk.red('Command is required!'))
-    return
+function addTargetPackage(pkg) {
+  switch (pkgManager) {
+    case 'pnpm':
+      execSyncCommand(`pnpm add ${pkg} -D`)
+      break
+    case 'yarn':
+      execSyncCommand(`yarn add ${pkg} -D`)
+      break
+    default:
+      execSyncCommand(`npm install ${pkg} -D`)
   }
-  const subProcess = exec(cmd, function (err, stdout) {
-    if (err) {
-      console.error(err)
-    }
-    console.log(stdout)
-    subProcess.kill()
-  })
 }
-// 设置
-function setEnvParams() {
+
+function preprocessWork() {
   // 将当前 cwd 写入环境变量
   process.env.originalWorkPath = process.cwd()
+  // 预装 zx
+  if (pkg) {
+    const deps = {
+      ...(pkg.dependencies || {}),
+      ...(pkg.devDependencies || {}),
+    }
+    if (!deps.zx) {
+      addTargetPackage('zx')
+    }
+  }
 }
 
-setEnvParams()
+preprocessWork()
 
+// 根据参数执行指定命令
 switch (params) {
   case 'husky':
     if (args.cmt) {
-      execCommand(`pnpm --prefix ${controlPath} run zx:lintdd husky cmt`)
+      execSyncCommand(`pnpm --prefix ${controlPath} run zx:lintdd husky cmt`)
     } else {
-      execCommand(`pnpm --prefix ${controlPath} run zx:lintdd husky`)
+      execSyncCommand(`pnpm --prefix ${controlPath} run zx:lintdd husky`)
     }
     break
   default:

@@ -1,6 +1,7 @@
 #!/usr/bin/env zx
 
 import chalk from 'chalk'
+import { getPkgManager } from './bin/utils.mjs'
 
 const log = console.log
 const ALERT_MESSAGE = '\nPlease confirm your input!\n'
@@ -29,18 +30,9 @@ switch (target) {
     log(`Support command ===> ${cmds.join(' ')}`)
 }
 
-// 查看当前的包管理工具
-async function getPkgManager() {
-  const isPNpm = await fs.existsSync(path.join(workPath, './pnpm-lock.yaml'))
-  const isYarn = await fs.existsSync(path.join(workPath, './yarn.lock'))
-  if (isPNpm) return 'pnpm'
-  if (isYarn) return 'yarn'
-  return 'npm'
-}
-
 async function initHusky(params) {
   const hasCmt = params === 'cmt'
-  const pm = await getPkgManager()
+  const pm = await getPkgManager(workPath)
   const existJoylintDir = await fs.existsSync(path.join(workPath, '.joylint'))
   const verifyCommitPath = await path.join(
     workPath,
@@ -58,6 +50,9 @@ async function initHusky(params) {
   await $`cp ${verifyCommitPath} ${joylintPath}`
 
   log(chalk.cyan(`Current node package manager is ${pm}, start to install husky!\n`))
+
+  // 返回当前工作目录
+  await $`cd ${workPath}`
 
   switch (pm) {
     case 'pnpm':

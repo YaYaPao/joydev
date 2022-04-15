@@ -1,3 +1,8 @@
+import { existsSync } from 'fs'
+import { execSync } from 'child_process'
+import * as path from 'path'
+
+// 处理 args
 const preprocessArgs = (arr) => {
   let res = {}
   if (arr && Array.isArray(arr) && arr.length > 0) {
@@ -21,4 +26,24 @@ const preprocessArgs = (arr) => {
   return res
 }
 
-export { preprocessArgs }
+// 获取当前包管理工具
+function getPkgManager(workPath) {
+  const isPNpm = existsSync(path.join(workPath, './pnpm-lock.yaml'))
+  const isYarn = existsSync(path.join(workPath, './yarn.lock'))
+  if (isPNpm) return 'pnpm'
+  if (isYarn) return 'yarn'
+  return 'npm'
+}
+
+// 通过 child_process 来执行命令
+function execSyncCommand(cmd) {
+  if (!cmd) {
+    log(chalk.red('Command is required!'))
+    return
+  }
+  execSync(cmd, {
+    stdio: 'inherit',
+  })
+}
+
+export { preprocessArgs, getPkgManager, execSyncCommand }
