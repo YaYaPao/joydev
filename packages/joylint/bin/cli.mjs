@@ -77,9 +77,9 @@ preprocessWork()
 switch (params) {
   case 'husky':
     if (args.cmt) {
-      execSyncCommand(`pnpm --prefix ${controlPath} run zx:lintdd husky cmt`)
+      execSyncCommand(`zx ${controlPath}/joylint.mjs husky cmt`)
     } else {
-      execSyncCommand(`pnpm --prefix ${controlPath} run zx:lintdd husky`)
+      execSyncCommand(`zx ${controlPath}/joylint.mjs husky`)
     }
     break
   default:

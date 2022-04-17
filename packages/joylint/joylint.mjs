@@ -51,9 +51,6 @@ async function initHusky(params) {
 
   log(chalk.cyan(`Current node package manager is ${pm}, start to install husky!\n`))
 
-  // 返回当前工作目录
-  await $`cd ${workPath}`
-
   switch (pm) {
     case 'pnpm':
       await $`pnpm add husky -D`
