@@ -42,7 +42,16 @@ async function getPackageVersion() {
 async function build() {
   await $`rm -rf dist/*`
   await $`tsc --build tsconfig.json`
-  log(chalk.white.bgGreen.bold(`Successfully built at ${Date.now()}`))
+  log(chalk.white.bgGreen.bold(`Successfully built at ${new Date().toLocaleString()}`))
+}
+
+// 提交当前 stashed 文件
+async function commitStashedFile(msg) {
+  const current = new Date().toLocaleString()
+  const commitMessage = msg || `feat: robot commit at ${current}`
+  await $`git add .`
+  await $`git commit -m ${commitMessage}`
+  await $`git push`
 }
 
 async function release(version) {
@@ -88,6 +97,8 @@ async function release(version) {
   await $`git add package.json`
   await $`git commit -m "rls: joylint ${targetVersion}"`
   await $`pnpm publish`
+  // 提交到 git
+  await commitStashedFile(`rls: joylint at ${targetVersion}`)
 }
 
 // 删除指定 tag 或者全部删除

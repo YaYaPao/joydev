@@ -58,16 +58,16 @@ async function initHusky(params) {
     case 'pnpm':
       await $`pnpm add husky -D`
       await $`pnpx husky install`
-      hasCmt && (await $`pnpx husky add .husky/commit-msg "node .joylint/verify_commit_msg.js"`)
+      hasCmt && (await $`pnpx husky add .husky/commit-msg "node .joylint/verify_commit_msg.mjs"`)
       break
     case 'yarn':
       await $`yarn add husky -D`
       await $`yarn husky install`
-      hasCmt && (await $`yarn husky add .husky/commit-msg "node .joylint/verify_commit_msg.js"`)
+      hasCmt && (await $`yarn husky add .husky/commit-msg "node .joylint/verify_commit_msg.mjs"`)
       break
     default:
       await $`npm install husky -D`
       await $`npx husky install`
-      hasCmt && (await $`npx husky add .husky/commit-msg "node .joylint/verify_commit_msg.js"`)
+      hasCmt && (await $`npx husky add .husky/commit-msg "node .joylint/verify_commit_msg.mjs"`)
   }
 }
