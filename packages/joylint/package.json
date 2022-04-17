@@ -8,8 +8,7 @@
     "dist",
     "bin",
     "public",
-    "control.mjs",
-    "joylint.mjs"
+    "scripts"
   ],
   "bin": {
     "joylint": "./bin/cli.mjs"
