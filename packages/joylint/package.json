@@ -7,6 +7,7 @@
   "files": [
     "dist",
     "bin",
+    "public",
     "control.mjs",
     "joylint.mjs"
   ],
@@ -14,8 +15,8 @@
     "joylint": "./bin/cli.mjs"
   },
   "scripts": {
-    "zx": "zx control.mjs",
-    "zx:lintdd": "zx joylint.mjs"
+    "zx": "zx scripts/control.mjs",
+    "zx:joylint": "zx scripts/joylint.mjs"
   },
   "repository": {
     "type": "git",

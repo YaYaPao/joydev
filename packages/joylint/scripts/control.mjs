@@ -42,7 +42,6 @@ async function getPackageVersion() {
 async function build() {
   await $`rm -rf dist/*`
   await $`tsc --build tsconfig.json`
-  await $`cp ./joylint.mjs ./dist/`
   log(chalk.white.bgGreen.bold(`Successfully built at ${Date.now()}`))
 }
 

@@ -1,13 +1,16 @@
 #!/usr/bin/env zx
 
 import chalk from 'chalk'
-import { getPkgManager } from './bin/utils.mjs'
+import { getPkgManager } from '../bin/utils.mjs'
 
 const log = console.log
 const ALERT_MESSAGE = '\nPlease confirm your input!\n'
 const cmds = ['husky']
 const [nodePath, zxPath, scriptPath, ...restData] = process.argv
 const workPath = process.env.originalWorkPath || process.cwd() || '.'
+
+log(process.env.originalWorkPath)
+log(process.cwd())
 
 let choose
 if (!restData || restData.length === 0) {
@@ -23,7 +26,7 @@ if (!restData || restData.length === 0) {
 const [target, ...rest] = choose
 switch (target) {
   case 'husky':
-    initHusky(...rest)
+    initHusky(rest)
     break
   default:
     log(chalk.red(ALERT_MESSAGE))
@@ -31,14 +34,14 @@ switch (target) {
 }
 
 async function initHusky(params) {
-  const hasCmt = params === 'cmt'
+  // 参数校验
+  const hasCmt = params && Array.isArray(params) && params.includes('cmt')
   const pm = await getPkgManager(workPath)
   const existJoylintDir = await fs.existsSync(path.join(workPath, '.joylint'))
   const verifyCommitPath = await path.join(
     workPath,
-    'node_modules/joylint/dist/husky/verifyCommit.js',
+    'node_modules/joylint/public/temp/verify_commit_msg.mjs',
   )
-  // process.cwd() 返回当前执行命令的目录，由于通过 cli 执行 pnpm run，因此当前工作目录应该为 node_modules/joylint
   const joylintPath = await path.join(workPath, '.joylint')
 
   log(chalk.cyan(`Current joylintPath is ${joylintPath}!\n`))
@@ -55,16 +58,16 @@ async function initHusky(params) {
     case 'pnpm':
       await $`pnpm add husky -D`
       await $`pnpx husky install`
-      hasCmt && (await $`pnpx husky add .husky/commit-msg "node .joylint/verifyCommit.js"`)
+      hasCmt && (await $`pnpx husky add .husky/commit-msg "node .joylint/verify_commit_msg.js"`)
       break
     case 'yarn':
       await $`yarn add husky -D`
       await $`yarn husky install`
-      hasCmt && (await $`yarn husky add .husky/commit-msg "node .joylint/verifyCommit.js"`)
+      hasCmt && (await $`yarn husky add .husky/commit-msg "node .joylint/verify_commit_msg.js"`)
       break
     default:
       await $`npm install husky -D`
       await $`npx husky install`
-      hasCmt && (await $`npx husky add .husky/commit-msg "node .joylint/verifyCommit.js"`)
+      hasCmt && (await $`npx husky add .husky/commit-msg "node .joylint/verify_commit_msg.js"`)
   }
 }

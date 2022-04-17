@@ -161,11 +161,11 @@ importers:
   packages/test:
     specifiers:
       husky: ^7.0.4
-      joylint: ^1.1.3
+      joylint: ^1.1.5
       zx: ^6.0.7
     devDependencies:
       husky: 7.0.4
-      joylint: 1.1.4
+      joylint: link:../joylint
       zx: 6.0.7
 
 packages:

@@ -15,7 +15,7 @@ const runVersion = process.versions
 // 提取当前运行时 node 版本号的首字母
 const nodeV = runVersion.node.split('.')[0]
 // 指定执行脚本路径
-const controlPath = path.join(process.cwd() || '.', './node_modules/joylint/')
+const controlPath = path.join(process.cwd() || '.', './node_modules/joylint/scripts')
 // package manager
 const pkgManager = getPkgManager(process.cwd())
 
@@ -76,11 +76,11 @@ preprocessWork()
 // 根据参数执行指定命令
 switch (params) {
   case 'husky':
-    if (args.cmt) {
-      execSyncCommand(`zx ${controlPath}/joylint.mjs husky cmt`)
-    } else {
-      execSyncCommand(`zx ${controlPath}/joylint.mjs husky`)
+    const execParams = []
+    if (params.cmt) {
+      execParams.push('cmt')
     }
+    execSyncCommand(`zx ${controlPath}/joylint.mjs husky ${execParams.join(' ')}`)
     break
   default:
     log(helpInfo)
