@@ -77,10 +77,11 @@ preprocessWork()
 switch (params) {
   case 'husky':
     const execParams = []
-    if (params.cmt) {
+    if (args.cmt) {
       execParams.push('cmt')
     }
-    execSyncCommand(`zx ${controlPath}/joylint.mjs husky ${execParams.join(' ')}`)
+    const execCommand = `zx ${controlPath}/joylint.mjs husky ${execParams.join(' ')}`.trim()
+    execSyncCommand(execCommand)
     break
   default:
     log(helpInfo)
