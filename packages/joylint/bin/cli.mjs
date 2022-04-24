@@ -22,15 +22,14 @@ const pkgManager = getPkgManager(process.cwd())
 const helpInfo = `
 ${chalk.greenBright(`Hi, thanks for using joylint~✨`)}
 
-${chalk.blueBright(`Usage: `)} pnpx|npx joylint <command> [options]
-
-${chalk.blueBright(`Options: `)}
-  -v, --version   Output the current version.
-  -h, --help      Output usage information.
+${chalk.blueBright(`Usage: `)} pnpx|npx|yarn joylint <command> [options]
 
 ${chalk.blueBright(`Commands: `)}
   lint        Install *lint tools.
   husky       Install husky to enable githooks and generate executable scripts.
+    --only    Only install the husky.
+
+${chalk.yellowBright(`Nice to code!🎉`)}
 `
 
 // !params 什么都没传
@@ -82,8 +81,8 @@ switch (params) {
     break
   case 'husky':
     const execParams = []
-    if (args.cmt) {
-      execParams.push('cmt')
+    if (args.only) {
+      execParams.push('--only')
     }
     const huskyCommand = `zx ${controlPath}/joylint.mjs husky ${execParams.join(' ')}`.trim()
     execSyncCommand(huskyCommand)
