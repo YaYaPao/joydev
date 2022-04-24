@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import chalk from 'chalk'
-import { readFileSync, writeFileSync } from 'fs'
+import { readFileSync } from 'fs'
 import { argv } from 'process'
 import { preprocessArgs, getPkgManager, execSyncCommand } from './utils.mjs'
 import * as path from 'path'
@@ -29,7 +29,8 @@ ${chalk.blueBright(`Options: `)}
   -h, --help      Output usage information.
 
 ${chalk.blueBright(`Commands: `)}
-  husky [--cmt]   Install husky to use githooks and generate the commit verify-scripts.
+  lint        Install *lint tools.
+  husky       Install husky to enable githooks and generate executable scripts.
 `
 
 // !params 什么都没传
@@ -75,13 +76,17 @@ preprocessWork()
 
 // 根据参数执行指定命令
 switch (params) {
+  case 'lint':
+    const lintCommand = `zx ${controlPath}/joylint.mjs lint`
+    execSyncCommand(lintCommand)
+    break
   case 'husky':
     const execParams = []
     if (args.cmt) {
       execParams.push('cmt')
     }
-    const execCommand = `zx ${controlPath}/joylint.mjs husky ${execParams.join(' ')}`.trim()
-    execSyncCommand(execCommand)
+    const huskyCommand = `zx ${controlPath}/joylint.mjs husky ${execParams.join(' ')}`.trim()
+    execSyncCommand(huskyCommand)
     break
   default:
     log(helpInfo)

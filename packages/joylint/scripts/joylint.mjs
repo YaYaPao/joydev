@@ -1,11 +1,13 @@
 #!/usr/bin/env zx
 
 import chalk from 'chalk'
+import { readFileSync } from 'fs'
+import * as path from 'path'
 import { getPkgManager } from '../bin/utils.mjs'
 
 const log = console.log
 const ALERT_MESSAGE = '\nPlease confirm your input!\n'
-const cmds = ['husky']
+const cmds = ['husky', 'lint']
 const [nodePath, zxPath, scriptPath, ...restData] = process.argv
 const workPath = process.env.originalWorkPath || process.cwd() || '.'
 
@@ -25,6 +27,9 @@ if (!restData || restData.length === 0) {
 // 支持多参数传递
 const [target, ...rest] = choose
 switch (target) {
+  case 'lint':
+    setupLint(rest)
+    break
   case 'husky':
     initHusky(rest)
     break
@@ -33,6 +38,57 @@ switch (target) {
     log(`Support command ===> ${cmds.join(' ')}`)
 }
 
+/**
+ * 安装 lint 工具，从本地查询用户是否已安装指定 lint tools
+ * ⚠️ 不要使用类似 npm list 来寻找，因为 npm/yarn/pnpm 的执行命令和输出内容不一致，直接从 package.json 内进行查看
+ * @param {*} params
+ */
+async function setupLint(params) {
+  const pm = await getPkgManager(workPath)
+  const lintVersion = {
+    eslint: 8,
+    prettier: 2,
+    stylelint: 14,
+  }
+  let deps = {}
+  const pkg = JSON.parse(readFileSync(path.join(workPath, './package.json'), 'utf-8'))
+  if (pkg) {
+    deps = {
+      ...(pkg.dependencies || {}),
+      ...(pkg.devDependencies || {}),
+    }
+  }
+  // 判断本地是否已经安装相关依赖，如果已经安装则跳过该步骤，以用户手动安装版本，但是给出相关建议
+  const lintTools = []
+  Object.entries(lintVersion).map(({ key, value }) => {
+    if (deps[key]) {
+      log(chalk.yellowBright(`Local has installed ${key} with version: ${deps[key]}. Skip the install task!\n`))
+    } else {
+      lintTools.push(`${key}@${value}`) 
+    }
+  })
+
+  // 如果不需要安装则直接退出
+  if (lintTools.length === 0) {
+    process.exit(0)
+  }
+
+  switch (pm) {
+    case 'pnpm':
+      await $`pnpm add ${lintTools.join(' ')} -D`
+      break
+    case 'yarn':
+      await $`yarn add ${lintTools.join(' ')} -D`
+      break
+    default:
+      await $`npm install ${lintTools.join(' ')} -D`
+  }
+}
+
+/**
+ * 初始化 husky 并添加 commit-msg / pre-commit 钩子和执行脚本
+ * @param {*} params
+ */
 async function initHusky(params) {
   // 参数校验
   const hasCmt = params && Array.isArray(params) && params.includes('cmt')
