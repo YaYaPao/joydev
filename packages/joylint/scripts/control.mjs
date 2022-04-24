@@ -97,8 +97,6 @@ async function release(version) {
   await $`git add package.json`
   await $`git commit -m "rls: joylint ${targetVersion}"`
   await $`pnpm publish`
-  // 提交到 git
-  await commitStashedFile(`rls: joylint at ${targetVersion}`)
 }
 
 // 删除指定 tag 或者全部删除
