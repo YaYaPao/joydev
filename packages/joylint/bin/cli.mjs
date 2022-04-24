@@ -20,7 +20,8 @@ const controlPath = path.join(process.cwd() || '.', './node_modules/joylint/scri
 const pkgManager = getPkgManager(process.cwd())
 
 const helpInfo = `
-${chalk.greenBright(`Hi, thanks for using joylint~✨`)}
+${chalk.greenBright(`Hi, thanks for using joylint~✨\n`)}
+${chalk.greenBright(`Version:${pkg.version}`)}
 
 ${chalk.blueBright(`Usage: `)} pnpx|npx|yarn joylint <command> [options]
 

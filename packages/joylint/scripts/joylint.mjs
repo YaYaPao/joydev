@@ -61,7 +61,7 @@ async function setupLint(params) {
   }
   // 判断本地是否已经安装相关依赖，如果已经安装则跳过该步骤，以用户手动安装版本，但是给出相关建议
   const lintTools = []
-  Object.entries(lintVersion).forEach(({ key, value }) => {
+  Object.entries(lintVersion).forEach(([key, value]) => {
     if (deps[key]) {
       log(
         chalk.yellowBright(
@@ -78,15 +78,16 @@ async function setupLint(params) {
     process.exit(0)
   }
 
+  const pkgStr = lintTools.join(' ')
   switch (pm) {
     case 'pnpm':
-      await $`pnpm add ${lintTools.join(' ')} -D`
+      await $`pnpm add ${pkgStr} -D`
       break
     case 'yarn':
-      await $`yarn add ${lintTools.join(' ')} -D`
+      await $`yarn add ${pkgStr} -D`
       break
     default:
-      await $`npm install ${lintTools.join(' ')} -D`
+      await $`npm install ${pkgStr} -D`
   }
 }
 
