@@ -61,7 +61,7 @@ async function setupLint(params) {
   }
   // 判断本地是否已经安装相关依赖，如果已经安装则跳过该步骤，以用户手动安装版本，但是给出相关建议
   const lintTools = []
-  Object.entries(lintVersion).map(({ key, value }) => {
+  Object.entries(lintVersion).forEach(({ key, value }) => {
     if (deps[key]) {
       log(
         chalk.yellowBright(
@@ -97,26 +97,24 @@ async function setupLint(params) {
 async function initHusky(params) {
   const pm = await getPkgManager(workPath)
   const isOnly = params && Array.isArray(params) && params.includes('--only')
-  const existJoylintDir = await fs.existsSync(path.join(workPath, '.joylint'))
-  const verifyCommitPath = await path.join(
-    workPath,
-    'node_modules/joylint/public/verify_commit_msg.mjs',
-  )
-  const lintStagedPath = await path.join(workPath, 'node_modules/joylint/public/lint_staged.mjs')
-  const joylintPath = await path.join(workPath, '.joylint')
+  // 处理 .joylint 逻辑
+  if (!isOnly) {
+    const existJoylintDir = await fs.existsSync(path.join(workPath, '.joylint'))
+    const verifyCommitPath = await path.join(
+      workPath,
+      'node_modules/joylint/public/verify_commit_msg.mjs',
+    )
+    const lintStagedPath = await path.join(workPath, 'node_modules/joylint/public/lint_staged.mjs')
+    const joylintPath = await path.join(workPath, '.joylint')
+    // 不存在 .joylint 则需要创建一个
+    if (!existJoylintDir) {
+      await $`mkdir ${joylintPath}`
+    }
 
-  log(chalk.cyan(`Current joylintPath is ${joylintPath}!\n`))
-
-  // 不存在 .joylint 则需要创建一个
-  if (!existJoylintDir) {
-    await $`mkdir ${joylintPath}`
+    await $`cp ${verifyCommitPath} ${joylintPath}`
+    await $`cp ${lintStagedPath} ${joylintPath}`
+    log(chalk.cyan(`Current node package manager is ${pm}, start to install husky!\n`))
   }
-
-  // 拷贝脚本至指定工作目录
-  await $`cp ${verifyCommitPath} ${joylintPath}`
-  await $`cp ${lintStagedPath} ${joylintPath}`
-
-  log(chalk.cyan(`Current node package manager is ${pm}, start to install husky!\n`))
 
   switch (pm) {
     case 'pnpm':
@@ -124,7 +122,7 @@ async function initHusky(params) {
       await $`pnpx husky install`
       if (!isOnly) {
         await $`pnpx husky add .husky/commit-msg "node .joylint/verify_commit_msg.mjs"`
-        await $`pnpx husky add .husky/pre-commit "node .joylint/lint-staged.mjs"`
+        await $`pnpx husky add .husky/pre-commit "node .joylint/lint_staged.mjs"`
       }
       break
     case 'yarn':
@@ -132,7 +130,7 @@ async function initHusky(params) {
       await $`yarn husky install`
       if (!isOnly) {
         await $`yarn husky add .husky/commit-msg "node .joylint/verify_commit_msg.mjs"`
-        await $`yarn husky add .husky/pre-commit "node .joylint/lint-staged.mjs"`
+        await $`yarn husky add .husky/pre-commit "node .joylint/lint_staged.mjs"`
       }
       break
     default:
@@ -140,7 +138,7 @@ async function initHusky(params) {
       await $`npx husky install`
       if (!isOnly) {
         await $`npx husky add .husky/commit-msg "node .joylint/verify_commit_msg.mjs"`
-        await $`npx husky add .husky/pre-commit "node .joylint/lint-staged.mjs"`
+        await $`npx husky add .husky/pre-commit "node .joylint/lint_staged.mjs"`
       }
   }
 }
