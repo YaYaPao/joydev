@@ -1,6 +1,6 @@
 {
   "name": "joylint",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "description": "Enjoy linting in development!",
   "private": false,
   "main": "dist/index.js",
