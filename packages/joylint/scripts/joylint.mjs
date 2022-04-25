@@ -1,8 +1,5 @@
 #!/usr/bin/env zx
 
-import chalk from 'chalk'
-import { readFileSync } from 'fs'
-import * as path from 'path'
 import { getPkgManager } from '../bin/utils.mjs'
 
 const log = console.log
@@ -52,7 +49,7 @@ async function setupLint(params) {
     stylelint: 14,
   }
   let deps = {}
-  const pkg = JSON.parse(readFileSync(path.join(workPath, './package.json'), 'utf-8'))
+  const pkg = JSON.parse(fs.readFileSync(path.join(workPath, './package.json'), 'utf-8'))
   if (pkg) {
     deps = {
       ...(pkg.dependencies || {}),
@@ -69,7 +66,7 @@ async function setupLint(params) {
         ),
       )
     } else {
-      lintTools.push(`${key}@${value}`)
+      lintTools.push(key)
     }
   })
 
@@ -78,16 +75,24 @@ async function setupLint(params) {
     process.exit(0)
   }
 
-  const pkgStr = lintTools.join(' ')
+  // 如果执行 $`pnpm add ${lintTools.join(' ')} -D` 会被编译成 `pnpm add $'eslint@8' -D`
+  // 导致无法执行，所以这里展开依次进行执行
+  // TODO: 优化代码
   switch (pm) {
     case 'pnpm':
-      await $`pnpm add ${pkgStr} -D`
+      lintTools.includes('eslint') && (await $`pnpm add eslint@8 -D`)
+      lintTools.includes('prettier') && (await $`pnpm add prettier@2 -D`)
+      lintTools.includes('stylelint') && (await $`pnpm add stylelint@14 -D`)
       break
     case 'yarn':
-      await $`yarn add ${pkgStr} -D`
+      lintTools.includes('eslint') && (await $`yarn add eslint@8 -D`)
+      lintTools.includes('prettier') && (await $`yarn add prettier@2 -D`)
+      lintTools.includes('stylelint') && (await $`yarn add stylelint@14 -D`)
       break
     default:
-      await $`npm install ${pkgStr} -D`
+      lintTools.includes('eslint') && (await $`npm install eslint@8 -D`)
+      lintTools.includes('prettier') && (await $`npm install prettier@2 -D`)
+      lintTools.includes('stylelint') && (await $`npm install stylelint@14 -D`)
   }
 }
 
