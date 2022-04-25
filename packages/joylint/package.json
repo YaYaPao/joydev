@@ -24,7 +24,8 @@
   "keywords": [
     "eslint",
     "prettier",
-    "stylelint"
+    "stylelint",
+    "husky"
   ],
   "author": "YaYaPao",
   "license": "MIT",
@@ -48,18 +49,18 @@
     "eslint-plugin-react": "^7.29.2",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-vue": "^8.5.0",
-    "prettier": "^2.5.1",
-    "stylelint": "^14.5.3",
     "stylelint-config-css-modules": "^3.0.0",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^25.0.0",
     "stylelint-declaration-block-no-ignored-properties": "^2.5.0",
-    "typescript": "^4.6.2",
     "vue-eslint-parser": "^8.3.0"
   },
   "devDependencies": {
     "@types/node": "^17.0.21",
     "eslint": "^8.3.0",
+    "prettier": "^2.6.2",
+    "stylelint": "^14.7.1",
+    "typescript": "^4.6.2",
     "zx": "^6.0.7"
   }
 }
