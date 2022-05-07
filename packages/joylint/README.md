@@ -6,7 +6,7 @@
 [![requirements](https://img.shields.io/badge/node-%3E8.0.0-brightgreenf)]()
 [![code style](https://img.shields.io/badge/code%20style-prettier-%23ff69b4)]()
 
-<img align="center" src="https://docs-1300606192.cos.ap-shanghai.myqcloud.com/showcase/lintdd.jpg" alt="Enjoy linting!" title="PR welcome!">
+<img align="center" src="https://docs-1300606192.cos.ap-shanghai.myqcloud.com/showcase/joylint.jpg" alt="Enjoy linting!" title="PR welcome!">
 </div>
 
 <hr />
