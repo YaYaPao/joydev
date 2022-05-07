@@ -117,3 +117,7 @@ It's highly recommmanded to refer to its content.
   "include": ["src", "types/**/*", "configs/**/*", "vite.config.ts"],
 }
 ```
+
+## License
+
+Licensed under the MIT License.
