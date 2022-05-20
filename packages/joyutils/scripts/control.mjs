@@ -133,5 +133,6 @@ async function exeRelease(options) {
   await $`git commit -m "rls: joyutils ${setVersion} at ${dayjs().format(
     'YYYY-MM-DD HH:mm:ss'
   )}"`
-  await $`pnpm publish`
+  // 开通 2FA 之后， npm 每次 publish 都要 one-time-password，因此需要手动发布
+  // await $`pnpm publish`
 }
