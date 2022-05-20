@@ -130,7 +130,7 @@ async function exeRelease(options) {
   await exeBuild()
   await $`pnpm version ${setVersion}`
   await $`git add package.json`
-  await $`git commit -m "rls: joyutils ${setVersion} at ${day().format(
+  await $`git commit -m "rls: joyutils ${setVersion} at ${dayjs().format(
     'YYYY-MM-DD HH:mm:ss'
   )}"`
   await $`pnpm publish`
