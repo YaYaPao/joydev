@@ -4,7 +4,8 @@
     "rootDir": "./src",
     "outDir": "dist",
     "declaration": true,
-    "declarationDir": "dist"
+    "declarationDir": "dist",
+    "sourceMap": false
   },
   "include": ["src"],
 }

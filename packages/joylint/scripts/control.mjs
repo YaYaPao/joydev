@@ -1,9 +1,6 @@
 #!/usr/bin/env zx
-
-import chalk from 'chalk'
-
 const log = console.log
-const ALERT_MESSAGE = '\nPlease confirm your input!\n'
+const ALERT_MESSAGE = chalk.red('\n🤔Something went wrong please try again!\n')
 const cmds = ['build', 'rls']
 const versionGrade = ['major', 'minor', 'patch']
 const [nodePath, zxPath, scriptPath, ...restData] = process.argv
