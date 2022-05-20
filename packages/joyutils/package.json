@@ -1,6 +1,6 @@
 {
   "name": "joyutils",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Elegent & utility methods to facilitate common usage in JavaScript!",
   "main": "index.js",
   "files": [
