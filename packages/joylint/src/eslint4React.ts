@@ -7,7 +7,9 @@ module.exports = {
   extends: ['plugin:react/recommended', 'plugin:prettier/recommended'],
   parser: '@babel/eslint-parser',
   plugins: ['react', 'react-hooks'],
-  // 顶级域变量
+  // See: https://github.com/prettier/eslint-plugin-prettier/issues/102
+  useTabs: false,
+  // Global scope variables
   env: {
     browser: true,
     node: true,
