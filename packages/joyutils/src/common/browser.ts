@@ -1,19 +1,17 @@
 // 判断是否在服务端
-export function notBrowser(): boolean {
-  return (
+export function checkBrowser() {
+  const notSupportBrowser =
     typeof window === 'undefined' ||
     typeof window.document === 'undefined' ||
     typeof window.document.createElement === 'undefined'
-  )
+  if (notSupportBrowser) {
+    throw new Error('Shound be excuted in Browser runtime!')
+  }
 }
-
-const notBrowserError = new Error('Shound be excuted in Browser runtime!')
 
 // copy content to clipboard
 export function exeCopy(data: string, callback: () => void) {
-  if (notBrowser()) {
-    throw notBrowserError
-  }
+  checkBrowser()
   if (document.execCommand('copy')) {
     try {
       const input = document.createElement('input')
@@ -23,8 +21,7 @@ export function exeCopy(data: string, callback: () => void) {
       const c = document.execCommand('copy')
       input.remove()
       if (c) {
-        console.log('copy successed')
-        callback && callback()
+        typeof callback === 'function' && callback()
       } else {
         console.error('copy failed')
       }
@@ -34,10 +31,14 @@ export function exeCopy(data: string, callback: () => void) {
   }
 }
 
+// generate uuid in browser runtime
 export function geuuid(): string {
-  if (notBrowser()) {
-    throw notBrowserError
+  checkBrowser()
+  // randomUUID first.
+  if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+    return window.crypto.randomUUID()
   }
+  // Or performance.now with math.random.
   let d = Number(new Date())
   if (window.performance && typeof window.performance.now === 'function') {
     d += performance.now()
@@ -50,11 +51,9 @@ export function geuuid(): string {
   return uuid
 }
 
-// 动态创建 script
+// create script tag
 export function createScript(src: string): Promise<any> {
-  if (notBrowser()) {
-    throw notBrowserError
-  }
+  checkBrowser()
   return new Promise(function (resolve, reject) {
     let script = document.createElement('script')
     script.src = src
@@ -62,4 +61,18 @@ export function createScript(src: string): Promise<any> {
     script.onerror = () => reject(new Error(`${src} fail to load`))
     document.head.appendChild(script)
   })
+}
+
+// toggle fullscreen
+export function toggleFullScreen() {
+  checkBrowser()
+  const target = document.documentElement
+  if (!document.fullscreenElement) {
+    if (target.requestFullscreen) {
+      target.requestFullscreen()
+    }
+  } else {
+    // exit fullscreen
+    typeof document.exitFullscreen === 'function' && document.exitFullscreen()
+  }
 }
