@@ -38,7 +38,8 @@ async function getPackageVersion() {
 // 打包当前项目
 async function build() {
   await $`rm -rf dist/*`
-  await $`tsc --build tsconfig.json`
+  // await $`tsc --build tsconfig.json`
+  await $`rollup -c`
   log(chalk.white.bgGreen.bold(`Successfully built at ${new Date().toLocaleString()}`))
 }
 

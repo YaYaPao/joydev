@@ -1,11 +1,8 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "module": "commonjs",
-    "target": "es5",
-    "lib": ["esnext", "dom"],
-    "baseUrl": ".",
-    "jsx": "react",
+    "target": "ES2020",
+    "module": "ESNext",
     "resolveJsonModule": true,
     "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
@@ -13,10 +10,8 @@
     "noImplicitReturns": true,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
-    "experimentalDecorators": true,
-    "strict": true,
+    "strict": false,
     "skipLibCheck": true,
-    "declaration": true
   },
   "exclude": [
     "node_modules",

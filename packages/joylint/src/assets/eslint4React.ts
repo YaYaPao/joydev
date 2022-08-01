@@ -1,10 +1,10 @@
 import tslintRules from './eslintOptions/tslintRules'
 import { ReactParserOptions } from './eslintOptions/parserOptions'
 import { reactRules, eslintRules, prettierConflictRules } from './eslintOptions/rules'
-import { isTsProject } from './utils'
+import { isTsProject } from '../utils'
 
 module.exports = {
-  extends: ['plugin:react/recommended', 'plugin:prettier/recommended'],
+  extends: ['plugin:react/recommended', 'prettier'],
   parser: '@babel/eslint-parser',
   plugins: ['react', 'react-hooks'],
   // See: https://github.com/prettier/eslint-plugin-prettier/issues/102
@@ -37,6 +37,10 @@ module.exports = {
     'import/external-module-folders': ['node_modules', 'node_modules/@types'],
     // Add polyfills to the settings section of your eslint config. Append the name of the object and the property if one exists
     polyfills: ['fetch', 'Promise', 'URL', 'object-assign'],
+    // https://www.npmjs.com/package/eslint-plugin-react
+    react: {
+      version: 'detect',
+    },
   },
   overrides: isTsProject
     ? [
@@ -44,7 +48,7 @@ module.exports = {
           files: ['**/*.{ts,tsx}'],
           parser: '@typescript-eslint/parser',
           rules: tslintRules,
-          extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
+          extends: ['prettier', 'plugin:@typescript-eslint/recommended'],
         },
       ]
     : [],

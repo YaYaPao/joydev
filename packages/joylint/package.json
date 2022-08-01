@@ -3,6 +3,7 @@
   "version": "1.1.13",
   "description": "Enjoy linting in development!",
   "private": false,
+  "type": "module",
   "main": "dist/index.js",
   "files": [
     "dist",
@@ -11,15 +12,15 @@
     "scripts"
   ],
   "bin": {
-    "joylint": "./bin/cli.mjs"
+    "joylint": "bin/joylint.mjs"
   },
   "scripts": {
-    "zx": "zx scripts/control.mjs",
+    "zx": "zx scripts/zx.mjs",
     "zx:joylint": "zx scripts/joylint.mjs"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Y-lonelY/lintool.git"
+    "url": "https://github.com/YaYaPao/joydev/tree/main/packages/joylint"
   },
   "keywords": [
     "eslint",
@@ -43,25 +44,35 @@
     "@babel/preset-typescript": "^7.16.7",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
-    "chalk": "^5.0.0",
+    "clear": "^0.1.0",
+    "cross-spawn": "^7.0.3",
+    "envinfo": "^7.8.1",
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.29.2",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-vue": "^8.5.0",
+    "figlet": "^1.5.2",
+    "inquirer": "^9.0.2",
+    "picocolors": "^1.0.0",
     "stylelint-config-css-modules": "^3.0.0",
     "stylelint-config-prettier": "^9.0.3",
     "stylelint-config-standard": "^25.0.0",
     "stylelint-declaration-block-no-ignored-properties": "^2.5.0",
-    "vue-eslint-parser": "^8.3.0"
+    "vue-eslint-parser": "^8.3.0",
+    "which": "^2.0.2",
+    "zx": "^7.0.7"
   },
   "devDependencies": {
+    "@rollup/plugin-commonjs": "^22.0.1",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "@rollup/plugin-typescript": "^8.3.4",
     "@types/node": "^17.0.21",
-    "eslint": "^8.3.0",
+    "magic-string": "^0.26.2",
     "prettier": "^2.6.2",
     "stylelint": "^14.7.1",
-    "typescript": "^4.6.2",
-    "zx": "^6.0.7"
+    "typescript": "^4.6.2"
   }
 }

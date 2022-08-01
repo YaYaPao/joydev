@@ -4,7 +4,8 @@ export const reactRules = {
   'react/state-in-constructor': 0,
   'react/static-property-placement': 0,
   // 对 props 进行解构，要避免 state 和 props 内变量命名一致的问题
-  'react/destructuring-assignment': ['warn', 'always'],
+  // Too restrictive: https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/destructuring-assignment.md
+  'react/destructuring-assignment': 'off',
   'react/jsx-filename-extension': 'off',
   'react/no-array-index-key': 'warn',
   'react-hooks/rules-of-hooks': 'error',
@@ -18,8 +19,6 @@ export const reactRules = {
   'react/sort-comp': 0,
   'react/react-in-jsx-scope': 0,
   'react/jsx-one-expression-per-line': 0,
-  'react/self-closing-comp': 1,
-  'react/jsx-key': 1,
 }
 
 export const vue2Rules = {
@@ -62,7 +61,7 @@ export const vue3Rules = {
 }
 
 export const eslintRules = {
-  semi: ['error', 'never'],
+  semi: ['warn', 'never'],
   strict: ['error', 'never'],
   'generator-star-spacing': 0,
   'function-paren-newline': 0,
@@ -71,6 +70,7 @@ export const eslintRules = {
   'no-confusing-arrow': 0,
   'linebreak-style': 0,
   'no-unused-vars': 0,
+  'no-prototype-builtins': 'off',
 }
 
 // Conflict with prettier
@@ -82,4 +82,6 @@ export const prettierConflictRules = {
   'operator-linebreak': 0,
   'no-param-reassign': 2,
   'space-before-function-paren': 0,
+  'react/self-closing-comp': 1,
+  'react/jsx-key': 1,
 }
