@@ -5,7 +5,7 @@
  * @returns
  * @example hexToRgbA('#000', 0.5) => raba(255,255,255,0.5)
  */
-export function hexToRgbA(hex: string, alpha?: number) {
+function hexToRgbA(hex: string, alpha?: number) {
   let c: any
   if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
     c = hex.substring(1).split('')
@@ -21,3 +21,5 @@ export function hexToRgbA(hex: string, alpha?: number) {
   }
   throw new Error('Bad Hex')
 }
+
+export { hexToRgbA }

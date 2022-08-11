@@ -1,6 +1,10 @@
-// 对数组内元素进行洗牌
-export function shuffleArray<T extends Array<any>>(array: T): T {
-  let currentIndex = array.length
+/**
+ * 对数组内元素进行洗牌
+ * @param data
+ * @returns
+ */
+function shuffledata<T extends Array<any>>(data: T): T {
+  let currentIndex = data.length
   let temporaryValue = null
   let randomIndex = 0
 
@@ -11,10 +15,35 @@ export function shuffleArray<T extends Array<any>>(array: T): T {
     currentIndex -= 1
 
     // And swap it with the current element.
-    temporaryValue = array[currentIndex]
-    array[currentIndex] = array[randomIndex]
-    array[randomIndex] = temporaryValue
+    temporaryValue = data[currentIndex]
+    data[currentIndex] = data[randomIndex]
+    data[randomIndex] = temporaryValue
   }
-
-  return array
+  return data
 }
+
+/**
+ * Verify data is array and whether has element
+ * @param data
+ * @returns
+ */
+function isValidArray(data: unknown): boolean {
+  return Array.isArray(data) && data.length > 0
+}
+
+/**
+ * Compare two Array whether value is equalable(ignore element index)
+ * @param arr1
+ * @param arr2
+ * @returns
+ */
+function isArrayValueEqual(arr1: any[], arr2: any[]) {
+  if (!Array.isArray(arr1) || !Array.isArray(arr2)) {
+    return false
+  }
+  const crt1 = arr1.concat().sort().join()
+  const crt2 = arr2.concat().sort().join()
+  return crt1 === crt2
+}
+
+export { shuffledata, isValidArray, isArrayValueEqual }

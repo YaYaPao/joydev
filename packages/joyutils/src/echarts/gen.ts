@@ -49,4 +49,37 @@ const genCategory = (count: number, step: number = 86400) => {
     .reverse()
 }
 
-export { genPieMockData, genLineMockData, genCategory }
+/**
+ * 计算每项的值占比，常用于渲染饼图的 legend
+ * @param data 
+ * @param key 
+ * @param value 
+ * @param decimals 
+ * @returns 
+ */
+function calcObjectPercent(
+  data: Record<string, any>[],
+  key: string = 'key',
+  value: string = 'value',
+  decimals: number = 2,
+) {
+  const res = {}
+  if (data && Array.isArray(data) && data.length) {
+    const sum = data.reduce((p, n) => {
+      return p + n[value]
+    }, 0)
+    data.forEach((item) => {
+      if (item[key] && item[value]) {
+        const crt = typeof sum === 'number' && sum !== 0 ? Number(item[value]) / sum : 0
+        const percent = crt === 0 ? 0 : +(crt * 100).toFixed(decimals)
+        res[item[key]] = {
+          ...item,
+          percent,
+        }
+      }
+    })
+  }
+  return res
+}
+
+export { genPieMockData, genLineMockData, genCategory, calcObjectPercent }
