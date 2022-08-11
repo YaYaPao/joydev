@@ -1,10 +1,5 @@
 "use strict";
 exports.__esModule = true;
-var index_1 = require("../dist/index");
-var arr = ['a', 'b', 'c', 'd', 'e'];
-var pieData = (0, index_1.genPieMockData)(arr);
-console.log('pie', pieData);
-var shuffleData = (0, index_1.shuffleArray)(arr);
-console.log('shuffle', shuffleData);
-var opNumber = (0, index_1.opDigits)(1.234);
-console.log(opNumber);
+var common_1 = require("../dist/common");
+var a = (0, common_1.hexToRgbA)('#ef613e', 1.5);
+console.log(a);
