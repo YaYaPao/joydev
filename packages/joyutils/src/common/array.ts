@@ -23,12 +23,12 @@ function shuffledata<T extends Array<any>>(data: T): T {
 }
 
 /**
- * Verify data is array and whether has element
+ * Verify data is array and whether has element, type guard!
  * @param data
  * @returns
  */
-function isValidArray(data: unknown): boolean {
-  return Array.isArray(data) && data.length > 0
+function isValidArray<T>(data: unknown): data is T[] {
+  return Boolean(data) && Array.isArray(data) && data.length > 0
 }
 
 /**
