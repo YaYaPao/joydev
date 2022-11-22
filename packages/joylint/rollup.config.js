@@ -41,7 +41,7 @@ const __require = require;
 
 const options = defineConfig({
   input: {
-    processor: path.resolve(__dirname, 'src/processor.ts'),
+    // processor: path.resolve(__dirname, 'src/processor.ts'),
     prework: path.resolve(__dirname, 'src/prework.ts'),
     utils: path.resolve(__dirname, 'src/utils.ts'),
   },
@@ -57,7 +57,8 @@ const options = defineConfig({
     freeze: false,
   },
   plugins: [
-    nodeResolve({ preferBuiltins: true }),
+    // add node option to declare Node.js env
+    nodeResolve({ exportConditions: ['node'],preferBuiltins: true }),
     typescript({
       tsconfig: path.resolve(__dirname, 'tsconfig.json'),
     }),
@@ -67,7 +68,7 @@ const options = defineConfig({
     json(),
     cjsPatchPlugin(),
   ],
-  external: ['inquirer', 'string_decoder', 'figlet'],
+  // external: ['inquirer', 'string_decoder', 'figlet'],
 })
 
 export default () => {

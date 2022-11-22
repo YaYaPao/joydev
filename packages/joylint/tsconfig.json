@@ -11,7 +11,7 @@
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "strict": false,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "exclude": [
     "node_modules",
@@ -20,7 +20,8 @@
     "tslint:latest",
     "tslint-config-prettier",
     "tsExample/**",
-    "jsExample/**"
+    "jsExample/**",
+    "bin"
   ],
   "include": ["src/*.json", "src/**/*"]
 }
