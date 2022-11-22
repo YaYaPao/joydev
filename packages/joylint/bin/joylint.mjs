@@ -9,11 +9,11 @@ process.on('unhandledRejection', (err) => {
 
 import pico from 'picocolors'
 import { readFileSync } from 'node:fs'
-import { argv } from 'node:process'
 import path, { dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { preprocessArgs, run, log } from '../dist/utils.mjs'
-import { setupLintPackages } from '../dist/processor.mjs'
+import { preprocessArgs, log } from '../dist/utils.mjs'
+import { prework } from '../dist/prework.mjs'
+import { taskProcessor } from '../dist/inquirer.mjs'
 
 // Used to correct current __filename and __dirname
 const __filename = fileURLToPath(import.meta.url)
@@ -27,7 +27,7 @@ if (major < 8) {
   log(
     pico.red(`
   You are running Node ${major}.
-  Create Joy App requires Node 8 or higher.
+  JOYLINT requires Node 8 or higher.
   Please update your version of Node.
   `),
   )
@@ -41,56 +41,58 @@ const packageInfo = JSON.parse(readFileSync(path.join(joylintPath, 'package.json
 const helpInfo = `
 ${pico.green(`Hi, thanks for using joylint~✨\n`)}
 
-${pico.green(`Version:${packageInfo.version}`)}
+Package version: ${pico.green(`${packageInfo.version}`)}
 
 ${pico.blue(`Usage: `)} joylint <command> [options]
 
 ${pico.blue(`Commands: `)}
-  lint        Install *lint tools.
-  husky       Install husky to enable githooks and generate executable scripts.
-    --only    Only install the husky.
+  install-lint        Install *lint tools.
+  husky-scripts       Install husky to enable githooks and generate executable scripts.
 
 Options:
   --version                 output the script version number
   --help                    print the help information
 
-${pico.yellow(`Nice to code!🎉`)}
+${pico.yellow(`Enjoying coding anyway!🎉`)}
 `
 
 const params = preprocessArgs(process.argv.slice(2))
-log(params)
-const hasNamed = typeof params.entry !== 'undefined'
+const hasEntry = typeof params.entry !== 'undefined'
 
 // 指定执行脚本路径
 const controlPath = path.join(process.cwd() || '.', './node_modules/joylint/scripts')
 
+await prework()
+
 if (params.help) {
   log(helpInfo)
-  if (!hasNamed) {
-    process.exit(1)
-  }
+  process.exit(0)
 }
 
 if (params.version) {
   log(pico.green(`\n${packageInfo.version}\n`))
-  if (!hasNamed) {
-    process.exit(1)
-  }
+  process.exit(0)
+}
+
+let entryName
+if (!hasEntry) {
+  log()
+  entryName = await taskProcessor()
 }
 
 // 根据参数执行指定命令
-switch (params.entry) {
-  case 'lint':
-    setupLintPackages('yarn', cwd)
-    break
-  case 'husky':
-    const execParams = []
-    if (params.only) {
-      execParams.push('--only')
-    }
-    const huskyCommand = `zx ${controlPath}/joylint.mjs husky ${execParams.join(' ')}`.trim()
-    run(huskyCommand)
-    break
-  default:
-    log(helpInfo)
-}
+// switch (params.entry) {
+//   case 'lint':
+//     setupLintPackages('yarn', cwd)
+//     break
+//   case 'husky':
+//     const execParams = []
+//     if (params.only) {
+//       execParams.push('--only')
+//     }
+//     const huskyCommand = `zx ${controlPath}/joylint.mjs husky ${execParams.join(' ')}`.trim()
+//     run(huskyCommand)
+//     break
+//   default:
+//     log(helpInfo)
+// }

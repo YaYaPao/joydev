@@ -1,6 +1,7 @@
 import typescript from '@rollup/plugin-typescript'
 import commonjs from '@rollup/plugin-commonjs'
 import nodeResolve from '@rollup/plugin-node-resolve'
+import replacePlugin from '@rollup/plugin-replace'
 import path from 'node:path'
 import { defineConfig } from 'rollup'
 import MagicString from 'magic-string'
@@ -29,7 +30,6 @@ const __require = require;
       const s = new MagicString(code)
       // inject after the last `import`
       s.appendRight(index, cjsPatch)
-      console.log('patched cjs context: ' + chunk.fileName)
 
       return {
         code: s.toString(),
@@ -39,38 +39,72 @@ const __require = require;
   }
 }
 
-const options = defineConfig({
-  input: {
-    // processor: path.resolve(__dirname, 'src/processor.ts'),
-    prework: path.resolve(__dirname, 'src/prework.ts'),
-    utils: path.resolve(__dirname, 'src/utils.ts'),
+const plugins = [
+  // add node option to declare Node.js env
+  nodeResolve({ exportConditions: ['node'], preferBuiltins: true }),
+  typescript({
+    tsconfig: path.resolve(__dirname, 'tsconfig.json'),
+  }),
+  commonjs({
+    extensions: ['.js'],
+  }),
+  json(),
+  // cjsPatchPlugin(),
+]
+
+const options = defineConfig([
+  {
+    input: {
+      // processor: path.resolve(__dirname, 'src/processor.ts'),
+      prework: path.resolve(__dirname, 'src/prework.ts'),
+      utils: path.resolve(__dirname, 'src/utils.ts'),
+    },
+    output: [
+      {
+        dir: path.resolve(__dirname, 'dist'),
+        entryFileNames: `[name].mjs`,
+        // for export multi module
+        exports: 'named',
+        format: 'esm',
+        // Do not generate code to support live bindings
+        externalLiveBindings: false,
+        // Do not freeze namespace objects
+        freeze: false,
+      },
+    ],
+    plugins: [...plugins, cjsPatchPlugin()],
+    external: [],
   },
-  output: {
-    dir: path.resolve(__dirname, 'dist'),
-    entryFileNames: `[name].mjs`,
-    // for export multi module
-    exports: 'named',
-    format: 'esm',
-    // Do not generate code to support live bindings
-    externalLiveBindings: false,
-    // Do not freeze namespace objects
-    freeze: false,
+  {
+    input: {
+      inquirer: path.resolve(__dirname, 'src/inquirer.ts'),
+    },
+    output: [
+      {
+        dir: path.resolve(__dirname, 'dist'),
+        entryFileNames: `[name].mjs`,
+        // for export multi module
+        exports: 'named',
+        format: 'esm',
+        // Do not generate code to support live bindings
+        externalLiveBindings: false,
+        // Do not freeze namespace objects
+        freeze: false,
+      },
+    ],
+    plugins: [
+      ...plugins,
+      replacePlugin({
+        values: {
+          "'string_decoder/'": "'string_decoder/lib/string_decoder.js'",
+        },
+        delimiters: ['', ''],
+      }),
+    ],
+    external: [],
   },
-  plugins: [
-    // add node option to declare Node.js env
-    nodeResolve({ exportConditions: ['node'],preferBuiltins: true }),
-    typescript({
-      tsconfig: path.resolve(__dirname, 'tsconfig.json'),
-    }),
-    commonjs({
-      extensions: ['.js'],
-    }),
-    json(),
-    cjsPatchPlugin(),
-  ],
-  // external: ['inquirer', 'string_decoder', 'figlet'],
-})
+])
 
 export default () => {
-  return defineConfig([options])
+  return defineConfig(options)
 }
