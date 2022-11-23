@@ -55,9 +55,10 @@ const plugins = [
 const options = defineConfig([
   {
     input: {
-      // processor: path.resolve(__dirname, 'src/processor.ts'),
+      processor: path.resolve(__dirname, 'src/processor.ts'),
       prework: path.resolve(__dirname, 'src/prework.ts'),
       utils: path.resolve(__dirname, 'src/utils.ts'),
+      entry: path.resolve(__dirname, 'src/entry.ts'),
     },
     output: [
       {
@@ -78,6 +79,7 @@ const options = defineConfig([
   {
     input: {
       inquirer: path.resolve(__dirname, 'src/inquirer.ts'),
+      options: path.resolve(__dirname, 'src/options.ts'),
     },
     output: [
       {

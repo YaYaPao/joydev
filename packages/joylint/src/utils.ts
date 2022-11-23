@@ -9,7 +9,7 @@ export const isTsProject = existsSync(path.join(process.cwd() || '.', './tsconfi
 
 // 处理 args
 export const preprocessArgs = (arr: any) => {
-  let res = {}
+  const res = {}
   if (arr && Array.isArray(arr) && arr.length > 0) {
     res['entry'] = arr[0]
     arr.forEach((item) => {
@@ -43,4 +43,34 @@ export const run = (cmd: string, { unify = false } = {}) => {
       resolve((err ? '' : output).trim())
     })
   })
+}
+
+const determineFound = (name, version, appPath) => {
+  if (version === 'N/A') {
+    return Promise.resolve([name, 'N/A'])
+  }
+  if (!version || Object.keys(version).length === 0) return Promise.resolve([name, 'Not Found'])
+  if (!appPath) return Promise.resolve([name, version])
+  return Promise.resolve([name, version, appPath])
+}
+
+export async function getNpmInfo() {
+  const v = run(`npm -v`)
+  const w = run(`which npm`)
+  const [version, binPath] = await Promise.all([v, w])
+  return determineFound('npm', version, binPath)
+}
+
+export async function getPnpmInfo() {
+  const v = run(`pnpm -v`)
+  const w = run(`which pnpm`)
+  const [version, binPath] = await Promise.all([v, w])
+  return determineFound('pnpm', version, binPath)
+}
+
+export async function getYarnInfo() {
+  const v = run(`yarn -v`)
+  const w = run(`which yarn`)
+  const [version, binPath] = await Promise.all([v, w])
+  return determineFound('yarn', version, binPath)
 }

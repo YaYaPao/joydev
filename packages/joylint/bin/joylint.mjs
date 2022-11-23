@@ -14,6 +14,7 @@ import { fileURLToPath } from 'node:url'
 import { preprocessArgs, log } from '../dist/utils.mjs'
 import { prework } from '../dist/prework.mjs'
 import { taskProcessor } from '../dist/inquirer.mjs'
+import { start } from '../dist/entry.mjs'
 
 // Used to correct current __filename and __dirname
 const __filename = fileURLToPath(import.meta.url)
@@ -74,11 +75,18 @@ if (params.version) {
   process.exit(0)
 }
 
-let entryName
+let entryParams
 if (!hasEntry) {
   log()
-  entryName = await taskProcessor()
+  entryParams = await taskProcessor()
+  log(entryParams)
 }
+
+start({
+  ...entryParams,
+  workPath: cwd,
+  joyPath: joylintPath,
+})
 
 // 根据参数执行指定命令
 // switch (params.entry) {
