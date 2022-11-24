@@ -8,7 +8,7 @@
     "dist",
     "bin",
     "public",
-    "scripts"
+    "README.md"
   ],
   "bin": {
     "joylint": "bin/joylint.mjs"

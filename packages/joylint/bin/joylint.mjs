@@ -79,7 +79,6 @@ let entryParams
 if (!hasEntry) {
   log()
   entryParams = await taskProcessor()
-  log(entryParams)
 }
 
 start({

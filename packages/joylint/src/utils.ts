@@ -32,13 +32,16 @@ export const preprocessArgs = (arr: any) => {
 }
 
 export const run = (cmd: string, { unify = false } = {}) => {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     childProcess.exec(cmd, {}, (err, stdout, stderr) => {
       let output = ``
       if (unify) {
         output = stdout.toString() + stderr.toString()
       } else {
         output = stdout.toString()
+      }
+      if (err) {
+        reject(err)
       }
       resolve((err ? '' : output).trim())
     })

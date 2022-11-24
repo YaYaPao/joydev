@@ -47,6 +47,14 @@ const LINT_TOOLS = [
 
 const COMMON_DEPS = [
   {
+    name: '@babel/core',
+    version: '^7.16.0',
+  },
+  {
+    name: 'typescript',
+    version: '^4.6.2',
+  },
+  {
     name: 'eslint-config-prettier',
     version: '^8.4.0',
   },
@@ -150,6 +158,10 @@ const STYLELINT_DEPS = [
 const HUSKY_DEPS = [
   {
     name: 'lint-staged',
+    version: 'latest',
+  },
+  {
+    name: 'husky',
     version: 'latest',
   },
 ]

@@ -22,27 +22,24 @@ function endWork(data: number, task: string) {
   process.exit(0)
 }
 
+async function notExistAndCreate(data: string) {
+  const existJoylintDir = await fs.existsSync(data)
+  if (!existJoylintDir) {
+    log(pico.green(`[JOYLINT] Create ${data}`))
+    run(`mkdir ${data}`)
+  }
+}
+
 function generateLintDeps(framework: string) {
-  let deps = {}
+  let deps = []
   if (framework === 'react') {
-    deps = {
-      ...LINT_TOOLS,
-      ...REACT_DEPS,
-    }
+    deps = [...LINT_TOOLS, ...REACT_DEPS]
   } else if (framework === 'vue2') {
-    deps = {
-      ...LINT_TOOLS,
-      ...VUE2_DEPS,
-    }
+    deps = [...LINT_TOOLS, ...VUE2_DEPS]
   } else if (framework === 'vue3') {
-    deps = {
-      ...LINT_TOOLS,
-      ...VUE3_DEPS,
-    }
+    deps = [...LINT_TOOLS, ...VUE3_DEPS]
   } else {
-    deps = {
-      ...LINT_TOOLS,
-    }
+    deps = [...LINT_TOOLS]
   }
   return deps
 }
@@ -119,25 +116,29 @@ export function setupLintPackages(manager, cwd, framework, shouldEnd) {
  * @param shouldEnd 是否需要执行退出
  */
 export async function setupHusky(manager, cwd, joypath, shouldEnd) {
-  const res = installDependencies(manager, cwd, HUSKY_DEPS)
-  const existJoylintDir = await fs.existsSync(path.join(cwd, '.joylint'))
-  const joylintPath = await path.join(cwd, '.joylint')
+  try {
+    const res = installDependencies(manager, cwd, HUSKY_DEPS)
+    const huskyPath = path.join(cwd, '.husky')
+    const joylintPath = await path.join(cwd, '.joylint')
 
-  if (!existJoylintDir) {
-    log(pico.green(`[JOYLINT] Create .joylint at ${cwd}`))
-    run(`mkdir ${joylintPath}`)
+    await notExistAndCreate(joylintPath)
+    await notExistAndCreate(huskyPath)
+
+    HUSKY_SCRIPT_PATH.forEach((p) => {
+      const deletePath = path.join(joylintPath, p)
+      const targetPath = path.resolve(joypath, `public/${p}`)
+      log(targetPath)
+      run(`rm -f ${deletePath} && cp ${targetPath} ${joylintPath}`)
+    })
+
+    run(`npx husky install`)
+    run(`npx husky add ${cwd}/.husky/commit-msg "node ${joylintPath}/verify_commit_msg.mjs"`)
+    run(`npx husky add ${cwd}/.husky/pre-commit "node ${joylintPath}/lint_staged.mjs"`)
+    // 设置每次 install 自动执行 husky install
+    run(`npm pkg set scripts.prepare="husky install"`)
+    shouldEnd && endWork(res, 'Init Git process')
+  } catch (error) {
+    log(error)
+    process.exit(1)
   }
-
-  HUSKY_SCRIPT_PATH.forEach((p) => {
-    const deletePath = path.join(joylintPath, p)
-    const targetPath = path.join(cwd, `${joypath}/public/${p}`)
-    run(`rf -f ${deletePath} && cp ${targetPath} ${joylintPath} `)
-  })
-
-  run(
-    `npx husky install &&
-     npx husky add ${cwd}/.husky/commit-msg "node ${joylintPath}/verify_commit_msg.mjs" && 
-     npx husky add ${cwd}/.husky/pre-commit "node ${joylintPath}/lint_staged.mjs"`,
-  )
-  shouldEnd && endWork(res, 'Init Git process')
 }
