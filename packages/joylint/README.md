@@ -1,34 +1,30 @@
-<h1 align="center">Rasa Open Source</h1>
-<h5 align="center">Genki Dama OF Frontend's Lint!</h5>
+<h1 align="center">joylint</h1>
+<h5 align="center">Genki dama of frontend's code grammar and dev process!</h5>
 
 <div align="center">
 
-[![requirements](https://img.shields.io/badge/node-%3E8.0.0-brightgreenf)]()
-[![code style](https://img.shields.io/badge/code%20style-prettier-%23ff69b4)]()
+[![requirements](https://img.shields.io/badge/node-%3E8.0.0-brightgreenf)]() [![code style](https://img.shields.io/badge/code%20style-prettier-%23ff69b4)]()
 
-<img align="center" src="https://docs-1300606192.cos.ap-shanghai.myqcloud.com/showcase/joylint.jpg" alt="Enjoy linting!" title="PR welcome!">
+<img align="center" src="https://doc.joyjoy.cc/assets/showcase/joylint.png" alt="Enjoy linting!" title="PR welcome!">
 </div>
 
 <hr />
 
-Joylint is the simplest way to enable lint-power for your project. Once installed, this:
+**Joylint** is the simplest way to enable lint-power for your project. Once installed, this:
 
-- 👍 **Enable ESLint, Prettier, Stylelint, husky and lint-staged.**
-- 🥰 **Includes powerful shortcodes** to execute on your dev process. It's based on husky and lint-staged.
-
+- 👍 **Compose ESLint, Prettier, Stylelint, TypeScript => normalized rules**
+- ✨ **Standardized Git process**
+- 🥰 **Powerful .\*rc code snippets**
 
 ## Installation
 
-### Requirements
+### Prerequisites
 
-- Node.js 8.0.0+
+If you want to **enable ESLint**, then Node.js (^12.22.0, ^14.17.0, or >=16.0.0) built with SSL support. (If you are using an official Node.js distribution, SSL is always built in.)
 
-Choose your favorite package manager:
+Choose your preferred package manager:
 
 ```bash
-# pnpm(recomanded)
-pnpm add joylint -D
-
 # npm
 npm i joylint -D
 
@@ -38,23 +34,33 @@ yarn add joylint -D
 
 ## Usage
 
-Once you have installed joylint in your project. You can exec `pnpx joylint` to get some info. You will need to
+Then excute `yarn joylint` to decide which task to do.
+
+- Install lint tools, will auto install lint-tools and their dependencies, if you have installed, we will skip these packages.
+- Init Husky Task will help you complete husky-realted process and create a rules's script in local.
 
 ```bash
-# Install Eslint, Prettier and Stylelint for your project.
-pnpx joylint lint
 
-# Install husky and lint-staged for your project.
-# Generate executable scripts in .joylint directory.
-# Default to enable commit-msg and pre-commmit githooks.
-pnpx joylint husky
+> joylint
+_________________  ___________________   _________
+______  /_  __ \ \/ /__  /____  _/__  | / /__  __/
+___ _  /_  / / /_  /__  /  __  / __   |/ /__  /
+/ /_/ / / /_/ /_  / _  /____/ /  _  /|  / _  /
+\____/  \____/ /_/  /_____/___/  /_/ |_/  /_/
+
+
+? What do you want to do next? (Use arrow keys)
+  Install lint tools, includes: Eslint, Prettier, Stylelint
+  Init husky and generate githooks scripts, inclued: commit-msg, pre-commit
+❯ All Above Task
+
 ```
 
-### config *rc.js
+### config \*rc.js
 
 Here's a quick demostration:
 
-**.prettierrc.js**
+#### .prettierrc.js
 
 ```js
 const joylintPrettier = require('joylint/dist/prettier')
@@ -64,9 +70,10 @@ module.exports = {
 }
 ```
 
-**.eslintrc.js**
+#### .eslintrc.js
 
-Supported
+**Supported**
+
 - eslint4React
 - eslint4Vue3
 - eslint4Vue2
@@ -96,9 +103,10 @@ module.exports = {
 }
 ```
 
-**tsconfig.json**
+#### tsconfig.json
 
 Supported
+
 - tsconfig4React
 - tsconfig4Vue3
 
@@ -113,7 +121,7 @@ It's highly recommmanded to refer to its content.
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "types/**/*", "configs/**/*", "vite.config.ts"],
+  "include": ["src", "types/**/*", "configs/**/*", "vite.config.ts"]
 }
 ```
 
