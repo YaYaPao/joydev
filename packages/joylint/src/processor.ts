@@ -4,7 +4,14 @@ import fs from 'node:fs'
 import pico from 'picocolors'
 import spawn from 'cross-spawn'
 import { log, run } from './utils'
-import { lintTools, huskyTools, huskyScriptPath } from './options'
+import {
+  LINT_TOOLS,
+  HUSKY_DEPS,
+  HUSKY_SCRIPT_PATH,
+  REACT_DEPS,
+  VUE2_DEPS,
+  VUE3_DEPS,
+} from './options'
 
 function endWork(data: number, task: string) {
   if (data === 0) {
@@ -13,6 +20,31 @@ function endWork(data: number, task: string) {
     log(`${pico.green(`[JOYLINT] ${task} success`)} All tasks are already done.`)
   }
   process.exit(0)
+}
+
+function generateLintDeps(framework: string) {
+  let deps = {}
+  if (framework === 'react') {
+    deps = {
+      ...LINT_TOOLS,
+      ...REACT_DEPS,
+    }
+  } else if (framework === 'vue2') {
+    deps = {
+      ...LINT_TOOLS,
+      ...VUE2_DEPS,
+    }
+  } else if (framework === 'vue3') {
+    deps = {
+      ...LINT_TOOLS,
+      ...VUE3_DEPS,
+    }
+  } else {
+    deps = {
+      ...LINT_TOOLS,
+    }
+  }
+  return deps
 }
 
 /**
@@ -42,7 +74,7 @@ function installDependencies(manager, cwd, dependencies): number {
           ),
         )
       } else {
-        data.push(`${name}@^${version}`)
+        data.push(`${name}@${version}`)
       }
     })
   }
@@ -70,14 +102,24 @@ function installDependencies(manager, cwd, dependencies): number {
  * 初始化内置 lint 工具
  * @param manager Node.js package manager
  * @param cwd current work directory
+ * @param framework Frontend framework
+ * @param shouldEnd 是否需要执行退出
  */
-export function setupLintPackages(manager, cwd) {
-  const res = installDependencies(manager, cwd, lintTools)
-  endWork(res, 'Init lint tools')
+export function setupLintPackages(manager, cwd, framework, shouldEnd) {
+  const deps = generateLintDeps(framework)
+  const res = installDependencies(manager, cwd, deps)
+  shouldEnd && endWork(res, 'Init lint tools')
 }
 
-export async function setupHusky(manager, cwd, joypath) {
-  const res = installDependencies(manager, cwd, huskyTools)
+/**
+ * Setup husky, lint-staged and preset husky scripts
+ * @param manager
+ * @param cwd
+ * @param joypath
+ * @param shouldEnd 是否需要执行退出
+ */
+export async function setupHusky(manager, cwd, joypath, shouldEnd) {
+  const res = installDependencies(manager, cwd, HUSKY_DEPS)
   const existJoylintDir = await fs.existsSync(path.join(cwd, '.joylint'))
   const joylintPath = await path.join(cwd, '.joylint')
 
@@ -86,7 +128,7 @@ export async function setupHusky(manager, cwd, joypath) {
     run(`mkdir ${joylintPath}`)
   }
 
-  huskyScriptPath.forEach((p) => {
+  HUSKY_SCRIPT_PATH.forEach((p) => {
     const deletePath = path.join(joylintPath, p)
     const targetPath = path.join(cwd, `${joypath}/public/${p}`)
     run(`rf -f ${deletePath} && cp ${targetPath} ${joylintPath} `)
@@ -94,8 +136,8 @@ export async function setupHusky(manager, cwd, joypath) {
 
   run(
     `npx husky install &&
-     npx husky add .husky/commit-msg "node .joylint/verify_commit_msg.mjs" && 
-     npx husky add .husky/pre-commit "node .joylint/lint_staged.mjs"`,
+     npx husky add ${cwd}/.husky/commit-msg "node ${joylintPath}/verify_commit_msg.mjs" && 
+     npx husky add ${cwd}/.husky/pre-commit "node ${joylintPath}/lint_staged.mjs"`,
   )
-  endWork(res, 'Init Git process')
+  shouldEnd && endWork(res, 'Init Git process')
 }

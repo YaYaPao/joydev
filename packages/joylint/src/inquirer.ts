@@ -40,8 +40,8 @@ export async function taskProcessor() {
       const frame_answer = await inquirer.prompt([
         {
           type: 'list',
-          name: 'command',
-          message: `Which frame you are using?`,
+          name: 'framework',
+          message: `Which framework do you use?`,
           default: 'react',
           choices: FRAME_CHOICES,
         },

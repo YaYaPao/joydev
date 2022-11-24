@@ -5,20 +5,21 @@ export function start(params: {
   manager: string
   joypath: string
   workPath: string
+  framework: string
 }) {
-  const { command, manager, workPath, joypath } = params
+  const { command, manager, framework, workPath, joypath } = params
   switch (command) {
     case 'lints': {
-      setupLintPackages(manager, workPath)
+      setupLintPackages(manager, workPath, framework, true)
       break
     }
     case 'gitprocess': {
-      setupHusky(manager, workPath, joypath)
+      setupHusky(manager, workPath, joypath, true)
       break
     }
     case 'all': {
-      setupLintPackages(manager, workPath)
-      setupHusky(manager, workPath, joypath)
+      setupLintPackages(manager, workPath, framework, false)
+      setupHusky(manager, workPath, joypath, true)
       break
     }
   }
