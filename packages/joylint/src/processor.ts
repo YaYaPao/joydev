@@ -127,7 +127,6 @@ export async function setupHusky(manager, cwd, joypath, shouldEnd) {
     HUSKY_SCRIPT_PATH.forEach((p) => {
       const deletePath = path.join(joylintPath, p)
       const targetPath = path.resolve(joypath, `public/${p}`)
-      log(targetPath)
       run(`rm -f ${deletePath} && cp ${targetPath} ${joylintPath}`)
     })
 

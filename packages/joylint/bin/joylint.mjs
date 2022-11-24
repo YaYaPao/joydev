@@ -86,20 +86,3 @@ start({
   workPath: cwd,
   joyPath: joylintPath,
 })
-
-// 根据参数执行指定命令
-// switch (params.entry) {
-//   case 'lint':
-//     setupLintPackages('yarn', cwd)
-//     break
-//   case 'husky':
-//     const execParams = []
-//     if (params.only) {
-//       execParams.push('--only')
-//     }
-//     const huskyCommand = `zx ${controlPath}/joylint.mjs husky ${execParams.join(' ')}`.trim()
-//     run(huskyCommand)
-//     break
-//   default:
-//     log(helpInfo)
-// }
