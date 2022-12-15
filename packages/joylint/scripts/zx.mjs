@@ -40,7 +40,9 @@ async function build() {
   await $`rm -rf dist/*`
   // await $`tsc --build tsconfig.json`
   await $`rollup -c`
-  log(chalk.white.bgGreen.bold(`Successfully built at ${new Date().toLocaleString()}`))
+  await $`tsc --build tsconfig.build.json`
+  log(chalk.white.bgGreen.bold(`Successfully built at ${new Date().toLocaleString()}\n\n`))
+  await $`tree dist`
 }
 
 // 提交当前 stashed 文件
