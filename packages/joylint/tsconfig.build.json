@@ -23,5 +23,5 @@
     "jsExample/**",
     "bin"
   ],
-  "include": ["src/*.json", "src/assets/**/*"]
+  "include": ["src/tsconf/**/*", "src/lints/**/*"]
 }
