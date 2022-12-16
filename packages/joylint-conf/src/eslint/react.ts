@@ -7,12 +7,12 @@ import {
 } from './ops_rules'
 import { isTsProject } from '../utils'
 
-const esReact = {
+module.exports = {
   extends: ['plugin:react/recommended', 'prettier'],
   parser: '@babel/eslint-parser',
   plugins: ['react', 'react-hooks'],
   // See: https://github.com/prettier/eslint-plugin-prettier/issues/102
-  useTabs: false,
+  // useTabs: false,
   // Global scope variables
   env: {
     browser: true,
@@ -60,5 +60,3 @@ const esReact = {
     : [],
   parserOptions: ReactParserOptions,
 }
-
-export default esReact
