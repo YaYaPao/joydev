@@ -39,10 +39,6 @@ const __require = require;
   }
 }
 
-const lintFiles = {
-  es_react: path.resolve(__dirname, 'src/lints/eslint4React.ts'),
-}
-
 const plugins = [
   // add node option to declare Node.js env
   nodeResolve({ exportConditions: ['node'], preferBuiltins: true }),
@@ -84,7 +80,6 @@ const options = defineConfig([
     input: {
       inquirer: path.resolve(__dirname, 'src/inquirer.ts'),
       options: path.resolve(__dirname, 'src/options.ts'),
-      ...lintFiles,
     },
     output: [
       {
