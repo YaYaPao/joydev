@@ -1,6 +1,6 @@
 {
   "name": "joylint-conf",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Configurations of JOYLINT.",
   "main": "index.js",
   "files": [
