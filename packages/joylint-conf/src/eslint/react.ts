@@ -1,9 +1,13 @@
-import tslintRules from './eslintOptions/tslintRules'
-import { ReactParserOptions } from './eslintOptions/parserOptions'
-import { reactRules, eslintRules, prettierConflictRules } from './eslintOptions/rules'
+import { ReactParserOptions } from './ops_parser'
+import {
+  reactRules,
+  eslintRules,
+  typescriptRules,
+  prettierConflictRules,
+} from './ops_rules'
 import { isTsProject } from '../utils'
 
-module.exports = {
+const esReact = {
   extends: ['plugin:react/recommended', 'prettier'],
   parser: '@babel/eslint-parser',
   plugins: ['react', 'react-hooks'],
@@ -27,7 +31,9 @@ module.exports = {
     // support import modules from TypeScript files in JavaScript files
     'import/resolver': {
       node: {
-        extensions: isTsProject ? ['.js', '.jsx', '.ts', '.tsx', '.d.ts'] : ['.js', '.jsx'],
+        extensions: isTsProject
+          ? ['.js', '.jsx', '.ts', '.tsx', '.d.ts']
+          : ['.js', '.jsx'],
       },
     },
     'import/parsers': {
@@ -47,10 +53,12 @@ module.exports = {
         {
           files: ['**/*.{ts,tsx}'],
           parser: '@typescript-eslint/parser',
-          rules: tslintRules,
+          rules: typescriptRules,
           extends: ['prettier', 'plugin:@typescript-eslint/recommended'],
         },
       ]
     : [],
   parserOptions: ReactParserOptions,
 }
+
+export default esReact

@@ -1,0 +1,32 @@
+{
+  "name": "joylint-conf",
+  "version": "1.0.0",
+  "description": "Configurations of JOYLINT.",
+  "main": "index.js",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "zx": "zx scripts/zx.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YaYaPao/joydev/tree/main/packages/joylint"
+  },
+  "keywords": [
+    "eslint",
+    "prettier",
+    "stylelint",
+    "husky"
+  ],
+  "author": "YaYaPao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/YaYaPao/joydev/issues"
+  },
+  "homepage": "https://github.com/YaYaPao/joydev/blob/main/packages/joylint/README.md",
+  "devDependencies": {
+    "zx": "^7.1.1"
+  }
+}

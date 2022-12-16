@@ -1,8 +1,14 @@
-import tslintRules from './eslintOptions/tslintRules'
-import { eslintRules, prettierConflictRules } from './eslintOptions/rules'
+import {
+  eslintRules,
+  typescriptRules,
+  prettierConflictRules,
+} from './ops_rules'
 
 module.exports = {
-  extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
+  extends: [
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
   // 顶级域变量
@@ -16,7 +22,7 @@ module.exports = {
   },
   rules: {
     ...eslintRules,
-    ...tslintRules,
+    ...typescriptRules,
     ...prettierConflictRules,
   },
   settings: {

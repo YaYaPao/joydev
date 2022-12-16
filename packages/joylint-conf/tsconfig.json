@@ -13,15 +13,6 @@
     "strict": false,
     "skipLibCheck": true
   },
-  "exclude": [
-    "node_modules",
-    "dist",
-    "src/setupTests.ts",
-    "tslint:latest",
-    "tslint-config-prettier",
-    "tsExample/**",
-    "jsExample/**",
-    "bin"
-  ],
-  "include": ["src/tsconf/**/*", "src/lints/**/*"]
+  "exclude": ["node_modules", "dist", "bin"],
+  "include": ["src/**/*"]
 }

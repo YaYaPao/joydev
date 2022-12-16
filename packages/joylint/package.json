@@ -14,8 +14,7 @@
     "joylint": "bin/joylint.mjs"
   },
   "scripts": {
-    "zx": "zx scripts/zx.mjs",
-    "zx:joylint": "zx scripts/joylint.mjs"
+    "zx": "zx scripts/zx.mjs"
   },
   "repository": {
     "type": "git",

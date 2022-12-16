@@ -1,8 +1,12 @@
-import { eslintRules, prettierConflictRules, vue3Rules } from './eslintOptions/rules'
-import { Vue3ParserOptions } from './eslintOptions/parserOptions'
+import { eslintRules, prettierConflictRules, vue3Rules } from './ops_rules'
+import { Vue3ParserOptions } from './ops_parser'
 
 module.exports = {
-  extends: ['plugin:vue/vue3-recommended', 'eslint:recommended', 'plugin:prettier/recommended'],
+  extends: [
+    'plugin:vue/vue3-recommended',
+    'eslint:recommended',
+    'plugin:prettier/recommended',
+  ],
   parser: 'vue-eslint-parser',
   plugins: ['vue'],
   // 顶级域变量

@@ -38,20 +38,14 @@ async function getPackageVersion() {
 // 打包当前项目
 async function build() {
   await $`rm -rf dist/*`
-  // await $`tsc --build tsconfig.json`
-  await $`rollup -c`
-  // await $`tsc --build tsconfig.build.json`
-  log(chalk.white.bgGreen.bold(`Successfully built at ${new Date().toLocaleString()}\n\n`))
+  await $`tsc --build tsconfig.json`
+  await $`cp -R src/tsconf/ dist/tsconf/`
+  log(
+    chalk.white.bgGreen.bold(
+      `Successfully built at ${new Date().toLocaleString()}\n\n`
+    )
+  )
   await $`tree dist`
-}
-
-// 提交当前 stashed 文件
-async function commitStashedFile(msg) {
-  const current = new Date().toLocaleString()
-  const commitMessage = msg || `feat: robot commit at ${current}`
-  await $`git add .`
-  await $`git commit -m ${commitMessage}`
-  await $`git push`
 }
 
 async function release(version) {
@@ -63,10 +57,12 @@ async function release(version) {
     const versionArr = versionStr.split('.')
     if (versionStr) {
       const getVersionGrade = await question(
-        `Current version is ${chalk.cyanBright(versionStr)} , and which do you want to add?\n`,
+        `Current version is ${chalk.cyanBright(
+          versionStr
+        )} , and which do you want to add?\n`,
         {
           choices: versionGrade,
-        },
+        }
       )
       switch (getVersionGrade) {
         case 'patch':
@@ -97,19 +93,4 @@ async function release(version) {
   await $`git add package.json`
   await $`git commit -m "rls: joylint ${targetVersion}"`
   await $`pnpm publish`
-}
-
-// 删除指定 tag 或者全部删除
-async function deltag(name) {
-  const shouldDeleteAll = name[0] === '--all'
-  if (shouldDeleteAll) {
-    await $`git tag -l | xargs git push origin -d`
-    await $`git tag -l | xargs git tag -d`
-    log(chalk.black.bgGreen.bold(`Successfully delete all tags on remote/local at ${Date.now()}`))
-  } else {
-    const deltags = name.join(' ')
-    await $`git tag -d ${deltags}`
-    await $`git push origin -d ${name.join(' ')}`
-    log(chalk.black.bgGreen.bold(`Successfully delete ${deltags} on remote/local at ${Date.now()}`))
-  }
 }

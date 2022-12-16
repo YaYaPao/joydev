@@ -65,6 +65,12 @@ importers:
       which: 2.0.2
       zx: 7.1.1
 
+  packages/joylint-conf:
+    specifiers:
+      zx: ^7.1.1
+    devDependencies:
+      zx: 7.1.1
+
   packages/joyutils:
     specifiers:
       chalk: ^5.0.0
@@ -10540,7 +10546,7 @@ packages:
       '@types/node': 18.11.9
       '@types/ps-tree': 1.1.2
       '@types/which': 2.0.1
-      chalk: 5.0.1
+      chalk: 5.1.2
       fs-extra: 10.1.0
       globby: 13.1.2
       minimist: 1.2.6

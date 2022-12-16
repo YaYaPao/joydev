@@ -23,5 +23,5 @@
     "jsExample/**",
     "bin"
   ],
-  "include": ["src/*.json", "src/**/*"]
+  "include": ["src/*.json", "src/**/*", "../joylint-conf/src/eslint4React.ts"]
 }
