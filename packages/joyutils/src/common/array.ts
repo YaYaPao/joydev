@@ -1,9 +1,19 @@
 /**
- * 对数组内元素进行洗牌
+ * Verify data is array and whether has element, type guard!
  * @param data
  * @returns
  */
-function shuffledata<T extends Array<any>>(data: T): T {
+function isValidArray<T>(data: unknown): data is T[] {
+  return Boolean(data) && Array.isArray(data) && data.length > 0
+}
+
+/**
+ * shuffledata 对数组内元素进行洗牌
+ * @param data
+ * @returns
+ */
+function shuffledata(data: unknown): any {
+  if (!isValidArray(data)) return data
   let currentIndex = data.length
   let temporaryValue = null
   let randomIndex = 0
@@ -23,21 +33,12 @@ function shuffledata<T extends Array<any>>(data: T): T {
 }
 
 /**
- * Verify data is array and whether has element, type guard!
- * @param data
- * @returns
- */
-function isValidArray<T>(data: unknown): data is T[] {
-  return Boolean(data) && Array.isArray(data) && data.length > 0
-}
-
-/**
  * Compare two Array whether value is equalable(ignore element index)
  * @param arr1
  * @param arr2
  * @returns
  */
-function isArrayValueEqual(arr1: any[], arr2: any[]) {
+function isArrayValueEqual(arr1: any[], arr2: any[]): boolean {
   if (!Array.isArray(arr1) || !Array.isArray(arr2)) {
     return false
   }

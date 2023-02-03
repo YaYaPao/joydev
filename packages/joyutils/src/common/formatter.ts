@@ -29,12 +29,37 @@ export function thsplite(number: string | number, seperator = ',') {
  * @param value
  * @param digits
  * @returns
+ * Number(undefined) => Nan, Number(null) => 0
  */
 export function opDigits(value: any, digits: number = 2): number | null {
   if (isNaN(Number(value))) return value
-  // isNaN(Number(null)) => false
   if (value === null) return null
   const target = Number(value)
   if (Number.isInteger(target)) return value
   return +target.toFixed(digits)
+}
+
+/**
+ * fmtBytes 格式化 bytes，比如 1024bytes => 1KB
+ * @param data
+ * @param decimal
+ */
+export function fmtBytes(data: unknown, decimal: number = 2): any {
+  const v = Number(data)
+  if (typeof v !== 'number') return data
+  const t = 1024 * 1024 * 1024
+  const m = 1024 * 1024
+  const k = 1024
+  if (v >= t) {
+    const newV = thsplite(opDigits(v / t, decimal)!)
+    return `${newV}TB`
+  } else if (v >= m) {
+    const newV = opDigits(v / m, decimal)
+    return `${newV}MB`
+  } else if (v >= k) {
+    const newV = opDigits(v / k, decimal)
+    return `${newV}KB`
+  } else {
+    return `${v}bytes`
+  }
 }

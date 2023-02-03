@@ -1,14 +1,5 @@
-import { hexToRgbA } from '../dist/common'
-import { isValidArray } from '../dist/common'
+import { fmtBytes } from '../dist/common'
 
-const a = hexToRgbA('#ef613e', 1.5)
-console.log(a)
-
-function isArrayValid<T>(data: unknown): data is T[] {
-  return Boolean(data) && Array.isArray(data) && data.length > 0
-}
-
-let arr: unknown
-if (isArrayValid<string>(arr)) {
-  arr.map((item) => item)
-}
+console.log(fmtBytes(1025))
+console.log(fmtBytes(125))
+console.log(fmtBytes(10250))

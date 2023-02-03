@@ -1,5 +1,5 @@
 {
-  "extends": "./node_modules/joylint/dist/reference/tsconfig4TS.json",
+  "extends": "./node_modules/joylint-conf/dist/tsconf/typescript.json",
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "dist",
@@ -7,5 +7,5 @@
     "declarationDir": "dist",
     "sourceMap": false
   },
-  "include": ["src"],
+  "include": ["src"]
 }
