@@ -6,6 +6,11 @@ import path from 'node:path'
 import { defineConfig } from 'rollup'
 import MagicString from 'magic-string'
 import json from '@rollup/plugin-json'
+import { fileURLToPath as __cjs_fileURLToPath } from 'node:url'
+import { dirname as __cjs_dirname } from 'node:path'
+
+const __filename = __cjs_fileURLToPath(import.meta.url)
+const __dirname = __cjs_dirname(__filename)
 
 /**
  * Inject CJS Context for each deps chunk
