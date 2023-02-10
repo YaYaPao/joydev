@@ -9,11 +9,22 @@ export function checkBrowser() {
   }
 }
 
-// copy content to clipboard
+/**
+ * exeCopy Writting text to clipboard, must be called within user gesture event handlers.
+ * @param data
+ * @param callback
+ */
 export function exeCopy(data: string, callback: () => void) {
-  checkBrowser()
-  if (document.execCommand('copy')) {
-    try {
+  try {
+    checkBrowser()
+    if (typeof navigator.clipboard.writeText === 'function') {
+      navigator.clipboard
+        .writeText(data)
+        .then(() => {
+          typeof callback === 'function' && callback()
+        })
+        .catch(console.log)
+    } else if (document.execCommand('copy')) {
       const input = document.createElement('input')
       input.setAttribute('value', String(data))
       document.body.appendChild(input)
@@ -25,9 +36,9 @@ export function exeCopy(data: string, callback: () => void) {
       } else {
         console.error('copy failed')
       }
-    } catch (error) {
-      throw error
     }
+  } catch (error) {
+    throw error
   }
 }
 
