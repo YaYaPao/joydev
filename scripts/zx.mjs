@@ -9,6 +9,7 @@ import chalk from 'chalk'
 import { queryCommand } from './queryer.mjs'
 import { cmds } from './config.mjs'
 import { buildPackage } from './build.mjs'
+import { publishPackage } from './release.mjs'
 
 const log = console.log
 const [nodePath, zxPath, scriptPath, ...rest] = process.argv
@@ -36,5 +37,9 @@ if (!Array.isArray(rest) || rest.length === 0) {
 switch (answer.command) {
   case 'build':
     await buildPackage(answer.package)
+    break
+  case 'release':
+    await buildPackage(answer.package)
+    await publishPackage(answer.package)
     break
 }
