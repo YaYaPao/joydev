@@ -1,6 +1,6 @@
 {
   "name": "@joyaya/joyutils",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Elegent & utility methods to facilitate common usage in JavaScript!",
   "main": "dist/index.mjs",
   "typings": "dist/index.d.ts",
