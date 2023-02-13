@@ -1,7 +1,7 @@
 import { resolve } from 'node:path'
 import { readFileSync } from 'node:fs'
 import { semverisons } from './config.mjs'
-import { chdir } from 'node:process'
+import { chdir, cwd } from 'node:process'
 import { queryVersion } from './queryer.mjs'
 import chalk from 'chalk'
 
@@ -37,15 +37,20 @@ const genTargetVersion = (version, type) => {
 /**
  * publishPackage 发布 package 到 npm registry
  * @param {*} pkg
- * @todo 1. 处理 git workspace is not empty
+ * @summary
+ * 1. 通过 --no-git-checks 来避免 publish 时 pnpm 的 git 前置检查，处理 Git work directory is not clean
+ * 2. 通过 `&&` 处理 work directiry 定位问题，详见 https://stackoverflow.com/questions/19803748/change-working-directory-in-my-current-shell-context-when-running-node-script
  */
 export const publishPackage = async (pkg) => {
   const version = getPackageVersion(pkg)
   const choosen = await queryVersion(semverisons, version)
   const targetVersion = genTargetVersion(version, choosen.version)
-  await chdir(resolve(__dirname, `../packages/${pkg}`))
-  await $`pnpm version ${targetVersion}`
-  await $`git add package.json`
-  await $`git commit -m "rls(${pkg}): :bookmark: ${targetVersion}"`
-  await $`pnpm publish --no-git-checks`
+
+  await $`cd ${resolve(__dirname, `../packages/${pkg}`)} && 
+  pwd &&
+  pnpm version ${targetVersion} &&
+  git add package.json &&
+  git commit -m "rls(${pkg}): :bookmark: ${targetVersion}" &&
+  pnpm publish --no-git-checks
+  `
 }
