@@ -47,5 +47,5 @@ export const publishPackage = async (pkg) => {
   await $`pnpm version ${targetVersion}`
   await $`git add package.json`
   await $`git commit -m "rls(${pkg}): :bookmark: ${targetVersion}"`
-  await $`pnpm publish`
+  await $`pnpm publish --no-git-checks`
 }
