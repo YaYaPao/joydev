@@ -1,5 +1,4 @@
 packages:
   - 'packages/*'
-  - 'packages/joylint'
 
 link-workspace-packages: false
