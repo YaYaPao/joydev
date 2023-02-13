@@ -21,5 +21,8 @@
   },
   "dependencies": {
     "joylint-conf": "workspace:^1.0.8"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
