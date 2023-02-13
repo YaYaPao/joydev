@@ -38,8 +38,9 @@ switch (answer.command) {
   case 'build':
     await buildPackage(answer.package)
     break
+  // relase 之前必须执行 build，因此根据其返回的 targetPackage 进行下一步赋值
   case 'release':
-    await buildPackage(answer.package)
-    await publishPackage(answer.package)
+    const pkg = await buildPackage(answer.package)
+    await publishPackage(pkg)
     break
 }

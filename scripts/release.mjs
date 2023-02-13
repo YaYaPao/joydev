@@ -2,6 +2,7 @@ import { resolve } from 'node:path'
 import { readFileSync } from 'node:fs'
 import { semverisons } from './config.mjs'
 import { chdir } from 'node:process'
+import { queryVersion } from './queryer.mjs'
 
 const getPackageVersion = (pkg) => {
   const packagePath = resolve(__dirname, `../packages/${pkg}/package.json`)
@@ -28,6 +29,11 @@ const genTargetVersion = (version, type) => {
   return arr.join('.')
 }
 
+/**
+ * publishPackage 发布 package 到 npm registry
+ * @param {*} pkg
+ * @todo 1. 处理 git workspace is not empty
+ */
 export const publishPackage = async (pkg) => {
   const version = getPackageVersion(pkg)
   const chooseVersion = await queryVersion(semverisons, version)

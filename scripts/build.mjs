@@ -13,13 +13,14 @@ export const buildPackage = async (pkg) => {
     switch (target) {
       case 'joylint':
         configPath = resolve(__dirname, '../packages/joylint/rollup.config.js')
-        $`rollup -c ${configPath}`
+        await $`rollup -c ${configPath}`
         break
       case 'joyutils':
         configPath = resolve(__dirname, '../packages/joyutils/rollup.config.js')
-        $`rollup -c ${configPath}`
+        await $`rollup -c ${configPath}`
         break
     }
+    return target
   } catch (error) {
     console.log(error)
     process.exit(1)
