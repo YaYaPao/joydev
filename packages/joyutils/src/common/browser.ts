@@ -14,7 +14,7 @@ export function checkBrowser() {
  * @param data
  * @param callback
  */
-export function exeCopy(data: string, callback: () => void) {
+export function exeCopy(data: string, callback: () => void | undefined) {
   try {
     checkBrowser()
     if (typeof navigator.clipboard.writeText === 'function') {
