@@ -77,7 +77,7 @@ export const queryVersion = async (sems, version) => {
       choices: packages,
     })
     const answer = {
-      package: chooseCommand.trim(),
+      version: chooseCommand.trim(),
     }
     return answer
   }

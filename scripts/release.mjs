@@ -3,6 +3,9 @@ import { readFileSync } from 'node:fs'
 import { semverisons } from './config.mjs'
 import { chdir } from 'node:process'
 import { queryVersion } from './queryer.mjs'
+import chalk from 'chalk'
+
+const log = console.log
 
 const getPackageVersion = (pkg) => {
   const packagePath = resolve(__dirname, `../packages/${pkg}/package.json`)
@@ -26,7 +29,9 @@ const genTargetVersion = (version, type) => {
       arr[0] = +arr[0] + 1
       break
   }
-  return arr.join('.')
+  const res = arr.join('.')
+  log(chalk.greenBright(`Change version to ${res}`))
+  return res
 }
 
 /**
@@ -36,8 +41,8 @@ const genTargetVersion = (version, type) => {
  */
 export const publishPackage = async (pkg) => {
   const version = getPackageVersion(pkg)
-  const chooseVersion = await queryVersion(semverisons, version)
-  const targetVersion = genTargetVersion(version, chooseVersion)
+  const choosen = await queryVersion(semverisons, version)
+  const targetVersion = genTargetVersion(version, choosen.version)
   await chdir(resolve(__dirname, `../packages/${pkg}`))
   await $`pnpm version ${targetVersion}`
   await $`git add package.json`
