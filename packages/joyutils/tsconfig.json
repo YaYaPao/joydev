@@ -1,11 +1,10 @@
 {
   "extends": "./node_modules/joylint-conf/dist/tsconf/typescript.json",
   "compilerOptions": {
-    "rootDir": "./src",
+    "rootDir": "src",
     "outDir": "dist",
     "module": "ESNext",
     "declaration": true,
-    "declarationDir": "",
     "sourceMap": false
   },
   "include": ["src"]
