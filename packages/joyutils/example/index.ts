@@ -1,4 +1,4 @@
-import { fmtBytes } from '../dist/common'
+import { fmtBytes } from '../dist/index.mjs'
 
 console.log(fmtBytes(1025))
 console.log(fmtBytes(125))

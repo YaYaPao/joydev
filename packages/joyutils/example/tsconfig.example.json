@@ -1,7 +1,13 @@
 {
   "compilerOptions": {
+    "module": "ESNext",
+    "target": "esnext",
+    "lib": ["ESNext"],
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "allowJs": true,
+    "strict": true,
+    "moduleResolution": "node"
   },
+  "exclude": ["dist/**/*"]
 }

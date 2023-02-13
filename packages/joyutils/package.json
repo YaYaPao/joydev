@@ -2,7 +2,8 @@
   "name": "joyutils",
   "version": "1.0.4",
   "description": "Elegent & utility methods to facilitate common usage in JavaScript!",
-  "main": "dist/index.js",
+  "main": "dist/index.mjs",
+  "type": "module",
   "files": [
     "dist"
   ],
