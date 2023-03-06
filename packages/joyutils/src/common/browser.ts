@@ -9,6 +9,19 @@ export function checkBrowser() {
   }
 }
 
+// addOutline Used to add outlines for all elements in page. Just for fun 🐶
+export function addOutline() {
+  checkBrowser()
+  const elements = Array.from(document.querySelectorAll<HTMLElement>('*'))
+  elements.forEach(
+    (ele) =>
+      (ele.style.outline = `1px solid #${(~~(
+        Math.random() *
+        (1 << 24)
+      )).toString(16)}`)
+  )
+}
+
 /**
  * exeCopy Writting text to clipboard, must be called within user gesture event handlers.
  * @param data
