@@ -3,6 +3,6 @@
  * @param config
  * @returns
  */
-export function defineConfig(config: any) {
+export function defineConfig<T>(config: any): T {
   return config
 }
