@@ -1,6 +1,6 @@
 {
-  "name": "joylint",
-  "version": "1.2.5",
+  "name": "@nofun/joylint",
+  "version": "1.2.6",
   "description": "Enjoy linting in DEV!",
   "private": false,
   "type": "module",
@@ -13,7 +13,9 @@
   "bin": {
     "joylint": "bin/joylint.mjs"
   },
-  "scripts": {},
+  "scripts": {
+    "zx": "zx scripts/zx.mjs"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/YaYaPao/joydev/tree/main/packages/joylint"
