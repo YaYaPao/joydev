@@ -5,4 +5,4 @@ temp
 .idea
 *.local
 /.vscode/
-crapp/
+packages/local-test/*
