@@ -108,7 +108,7 @@ const options = defineConfig([
         delimiters: ['', ''],
       }),
     ],
-    external: ['string_decoder', 'picocolors', 'readable-stream'],
+    external: ['string_decoder', 'picocolors'],
   },
 ])
 
