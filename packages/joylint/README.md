@@ -26,10 +26,10 @@ Choose your preferred package manager:
 
 ```bash
 # npm
-npm i joylint -D
+npm i @nofun/joylint -D
 
 # yarn
-yarn add joylint -D
+yarn add @nofun/joylint -D
 ```
 
 ## Usage
@@ -54,75 +54,6 @@ ___ _  /_  / / /_  /__  /  __  / __   |/ /__  /
   Init husky and generate githooks scripts, inclued: commit-msg, pre-commit
 ❯ All Above Task
 
-```
-
-### config \*rc.js
-
-Here's a quick demostration:
-
-#### .prettierrc.js
-
-```js
-const joylintPrettier = require('joylint/dist/prettier')
-
-module.exports = {
-  ...joylintPrettier,
-}
-```
-
-#### .eslintrc.js
-
-**Supported**
-
-- eslint4React
-- eslint4Vue3
-- eslint4Vue2
-- eslint4TS
-
-```js
-// customized options
-const customizedOptions = {}
-
-module.exports = {
-  extends: [require.resolve('joylint/dist/eslint4React')],
-  ...customizedOptions,
-}
-```
-
-**stylelintrc.js**
-
-```js
-// customized options
-const customizedOptions = {
-  ignoreFiles: ['index.html'],
-}
-
-module.exports = {
-  extends: [require.resolve('joylint/dist/stylelint')],
-  ...customizedOptions,
-}
-```
-
-#### tsconfig.json
-
-Supported
-
-- tsconfig4React
-- tsconfig4Vue3
-
-It's highly recommmanded to refer to its content.
-
-```json
-{
-  "extends": "./node_modules/joylint/dist/reference/tsconfig4React.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": ["src", "types/**/*", "configs/**/*", "vite.config.ts"]
-}
 ```
 
 ## License

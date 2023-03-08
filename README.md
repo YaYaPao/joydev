@@ -8,6 +8,10 @@ _We can enjoy developing with standardized and effective FRONTEND TOOLKIT CHAIN.
 
 [![Documentation](https://img.shields.io/badge/ftc-document-yellowgreen)](https://doc.joyjoy.cc/docs/project/frontend-toolkit-chain/entry/ftc)
 
-# Frontend Toolkit Chain
+# JOYDEV
 
-This is a monorepo, which includes [@joyaya/joyutils](https://github.com/YaYaPao/joydev/tree/main/packages/joyutils), [joylint](https://github.com/YaYaPao/joydev/tree/main/packages/joylint) and [joylint-conf](https://github.com/YaYaPao/joydev/tree/main/packages/joylint-conf). Helping us to improve developing work and make our work more effective and reliable.
+Welcome to joydev, a project that aims to help developers cultivate good coding practices and style.
+
+joydev is organized as a monorepo, which includes [@joyaya/joyutils](https://www.npmjs.com/package/@nofun/joyutils), [joylint](https://www.npmjs.com/package/@nofun/joylint) and [joylint-conf](https://github.com/YaYaPao/joydev/tree/main/packages/joylint-conf), and you can find on npm.
+
+If you have any questions about joydev or want to get involved, please don't hesitate to reach out.
