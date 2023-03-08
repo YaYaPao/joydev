@@ -108,7 +108,7 @@ const options = defineConfig([
         delimiters: ['', ''],
       }),
     ],
-    external: [],
+    external: ['readable-stream'],
   },
 ])
 
