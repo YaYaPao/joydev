@@ -79,7 +79,7 @@ const options = defineConfig([
       },
     ],
     plugins: [...plugins, cjsPatchPlugin()],
-    external: [],
+    external: ['picocolors'],
   },
   {
     input: {
@@ -108,7 +108,7 @@ const options = defineConfig([
         delimiters: ['', ''],
       }),
     ],
-    external: ['readable-stream'],
+    external: ['string_decoder', 'picocolors', 'readable-stream'],
   },
 ])
 

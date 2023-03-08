@@ -9,10 +9,10 @@
   "license": "ISC",
   "devDependencies": {
     "husky": "^7.0.4",
-    "joylint": "^1.1.5",
     "zx": "^6.0.7"
   },
   "dependencies": {
-    "joyutils": "workspace:^1.0.4"
+    "@nofun/joylint": "workspace:^1.2.7",
+    "@nofun/joyutils": "workspace:*"
   }
 }
