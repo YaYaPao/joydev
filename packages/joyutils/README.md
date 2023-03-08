@@ -7,9 +7,11 @@ _Every developer should have their own effective library!_
 
 ![node-version](https://img.shields.io/badge/node-%3E8.0.0-brightgreenf) ![prettier](https://img.shields.io/badge/code%20style-prettier-%23ff69b4)
 
+</div>
+
 <hr />
 
-**joyutils** is a Javascript library, and which come from my engineering experience.
+**joyutils** is a Javascript library, and which come from real-world engineering experience.
 
 ## Installation
 
