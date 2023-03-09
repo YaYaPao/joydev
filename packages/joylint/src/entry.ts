@@ -1,25 +1,20 @@
 import { setupLintPackages, setupHusky } from './processor'
+import type { EntryParams } from './typing'
 
-export function start(params: {
-  command: string
-  manager: string
-  joyPath: string
-  workPath: string
-  framework: string
-}) {
-  const { command, manager, framework, workPath, joyPath } = params
+export function start(params: EntryParams) {
+  const { command, manager, framework, workPath, joyPath, ismemorepo } = params
   switch (command) {
     case 'lints': {
       setupLintPackages(manager, workPath, framework, true)
       break
     }
     case 'gitprocess': {
-      setupHusky(manager, workPath, joyPath, true)
+      setupHusky(manager, workPath, joyPath, ismemorepo, true)
       break
     }
     case 'all': {
       setupLintPackages(manager, workPath, framework, false)
-      setupHusky(manager, workPath, joyPath, true)
+      setupHusky(manager, workPath, joyPath, ismemorepo, true)
       break
     }
   }

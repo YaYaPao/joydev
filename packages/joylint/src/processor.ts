@@ -49,9 +49,10 @@ function generateLintDeps(framework: string) {
  * @param manager Node.js package manager
  * @param cwd current work directory
  * @param dependencies waited to be installed
+ * @param shouldAddWorkspace should treat as memorepo
  * @returns length of installed dependencies
  */
-function installDependencies(manager, cwd, dependencies): number {
+function installDependencies(manager, cwd, dependencies, shouldAddWorkspace = false): number {
   let deps = {}
   const packageInfo = JSON.parse(readFileSync(path.join(cwd, 'package.json'), 'utf-8'))
   if (packageInfo) {
@@ -86,6 +87,9 @@ function installDependencies(manager, cwd, dependencies): number {
     installArgs = ['add', '-D', ...data, '--verbose']
   } else if (manager === 'pnpm') {
     installArgs = ['add', '-D', ...data]
+    if (shouldAddWorkspace) {
+      installArgs.splice(1, '-w')
+    }
   } else {
     installArgs = ['install', '-D', ...data, '--no-audit', '--loglevel', 'error', '--verbose']
   }
@@ -111,13 +115,14 @@ export function setupLintPackages(manager, cwd, framework, shouldEnd) {
 /**
  * Setup husky, lint-staged and preset husky scripts
  * @param manager
- * @param cwd
- * @param joypath
+ * @param cwd 当前工作目录
+ * @param joypath joylint 的路径
+ * @param isMemorepo 是否为 menorepo 且 manager 为 pnpm
  * @param shouldEnd 是否需要执行退出
  */
-export async function setupHusky(manager, cwd, joypath, shouldEnd) {
+export async function setupHusky(manager, cwd, joypath, isMemorepo, shouldEnd) {
   try {
-    const res = installDependencies(manager, cwd, HUSKY_DEPS)
+    const res = installDependencies(manager, cwd, HUSKY_DEPS, isMemorepo)
     const huskyPath = path.join(cwd, '.husky')
     const joylintPath = await path.join(cwd, '.joylint')
 

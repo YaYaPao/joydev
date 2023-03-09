@@ -25,7 +25,7 @@ const FRAME_CHOICES = [
     value: 'vue2',
   },
   {
-    name: 'Vuu3 + TypeScript + Prettier + Stylelint',
+    name: 'Vue3 + TypeScript + Prettier + Stylelint',
     value: 'vue3',
   },
 ]

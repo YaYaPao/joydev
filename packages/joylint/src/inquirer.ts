@@ -51,6 +51,19 @@ export async function taskProcessor() {
         ...frame_answer,
       }
     }
+    if (['pnpm'].includes(answers.manager)) {
+      const isMonorepo = await inquirer.prompt([
+        {
+          type: 'confirm',
+          name: 'ismemorepo',
+          message: 'Is a Memorepo?',
+        },
+      ])
+      answers = {
+        ...answers,
+        ...isMonorepo,
+      }
+    }
     return answers
   } catch (error) {
     log(pico.red(`Error throw from inquirer!`))

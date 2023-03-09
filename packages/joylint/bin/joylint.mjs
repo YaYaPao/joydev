@@ -81,6 +81,10 @@ if (!hasEntry) {
   entryParams = await taskProcessor()
 }
 
+log(entryParams)
+
+process.exit()
+
 start({
   ...entryParams,
   workPath: cwd,
