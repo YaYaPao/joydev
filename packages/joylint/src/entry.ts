@@ -5,7 +5,7 @@ export function start(params: EntryParams) {
   const { command, manager, framework, workPath, joyPath, ismemorepo } = params
   switch (command) {
     case 'lints': {
-      setupLintPackages(manager, workPath, framework, true)
+      setupLintPackages(manager, workPath, framework, ismemorepo, true)
       break
     }
     case 'gitprocess': {
@@ -13,7 +13,7 @@ export function start(params: EntryParams) {
       break
     }
     case 'all': {
-      setupLintPackages(manager, workPath, framework, false)
+      setupLintPackages(manager, workPath, framework, ismemorepo, false)
       setupHusky(manager, workPath, joyPath, ismemorepo, true)
       break
     }

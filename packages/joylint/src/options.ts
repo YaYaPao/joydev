@@ -33,42 +33,33 @@ const FRAME_CHOICES = [
 const LINT_TOOLS = [
   {
     name: 'eslint',
-    version: '^8.20.0',
   },
   {
     name: 'prettier',
-    version: '^2.7.1',
   },
   {
     name: 'stylelint',
-    version: '^14.9.1',
   },
 ]
 
 const COMMON_DEPS = [
   {
     name: '@babel/core',
-    version: '^7.16.0',
   },
   {
     name: 'typescript',
-    version: '^4.6.2',
   },
   {
     name: 'eslint-config-prettier',
-    version: '^8.4.0',
   },
   {
     name: 'eslint-plugin-prettier',
-    version: '^4.0.0',
   },
   {
     name: 'eslint-plugin-promise',
-    version: '^6.0.0',
   },
   {
     name: '@babel/eslint-parser',
-    version: '^7.17.0',
   },
 ]
 
@@ -76,39 +67,30 @@ const REACT_DEPS = [
   ...COMMON_DEPS,
   {
     name: '@typescript-eslint/parser',
-    version: '^5.13.0',
   },
   {
     name: '@typescript-eslint/eslint-plugin',
-    version: '^5.13.0',
   },
   {
     name: 'eslint-plugin-react',
-    version: '^7.29.2',
   },
   {
     name: 'eslint-plugin-react-hooks',
-    version: '^4.3.0',
   },
   {
     name: '@babel/preset-env',
-    version: '^7.16.11',
   },
   {
     name: '@babel/preset-react',
-    version: '^7.16.7',
   },
   {
     name: '@babel/preset-typescript',
-    version: '^7.16.7',
   },
   {
     name: '@babel/plugin-proposal-class-properties',
-    version: '^7.16.7',
   },
   {
     name: '@babel/plugin-proposal-decorators',
-    version: '^7.17.2',
   },
 ]
 
@@ -124,45 +106,36 @@ const VUE3_DEPS = [
   ...COMMON_DEPS,
   {
     name: 'vue-eslint-parser',
-    version: '^8.3.0',
   },
   {
     name: '@typescript-eslint/parser',
-    version: '^5.13.0',
   },
   {
     name: 'eslint-plugin-vue',
-    version: '^9.8.0',
   },
 ]
 
 const STYLELINT_DEPS = [
   {
     name: 'stylelint-config-css-modules',
-    version: '^3.0.0',
   },
   {
     name: 'stylelint-config-prettier',
-    version: '^9.0.3',
   },
   {
     name: 'stylelint-config-standard',
-    version: '^25.0.0',
   },
   {
     name: 'stylelint-declaration-block-no-ignored-properties',
-    version: '^2.5.0',
   },
 ]
 
 const HUSKY_DEPS = [
   {
     name: 'lint-staged',
-    version: 'latest',
   },
   {
     name: 'husky',
-    version: 'latest',
   },
 ]
 

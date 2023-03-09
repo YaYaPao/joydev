@@ -45,7 +45,7 @@ function generateLintDeps(framework: string) {
 }
 
 /**
- * 安装指定依赖，如果已存在则跳过
+ * 安装指定依赖（默认安装最新版本），如果已存在则跳过
  * @param manager Node.js package manager
  * @param cwd current work directory
  * @param dependencies waited to be installed
@@ -68,11 +68,13 @@ function installDependencies(manager, cwd, dependencies, shouldAddWorkspace = fa
       if (deps[name]) {
         log(
           pico.yellow(
-            `[Joylint]: Local package has installed ${name} with version: ${deps[name]}, the recommand version is ${version}.\nSkip the install task!\n`,
+            `[Joylint]: Local package has installed ${name} with version: ${
+              deps[name]
+            }, the recommand version is ${version ?? 'latest'}.\nSkip the install task!\n`,
           ),
         )
       } else {
-        data.push(`${name}@${version}`)
+        data.push(`${name}@${version ?? 'latest'}`)
       }
     })
   }
@@ -104,11 +106,12 @@ function installDependencies(manager, cwd, dependencies, shouldAddWorkspace = fa
  * @param manager Node.js package manager
  * @param cwd current work directory
  * @param framework Frontend framework
+ * @param isMemorepo 是否为 menorepo 且 manager 为 pnpm
  * @param shouldEnd 是否需要执行退出
  */
-export function setupLintPackages(manager, cwd, framework, shouldEnd) {
+export function setupLintPackages(manager, cwd, framework, isMemorepo, shouldEnd) {
   const deps = generateLintDeps(framework)
-  const res = installDependencies(manager, cwd, deps)
+  const res = installDependencies(manager, cwd, deps, isMemorepo)
   shouldEnd && endWork(res, 'Init lint tools')
 }
 
