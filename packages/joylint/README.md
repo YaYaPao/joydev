@@ -34,7 +34,7 @@ yarn add @nofun/joylint -D
 
 ## Usage
 
-Then excute `yarn joylint` to decide which task to do.
+Execute `npx joylint` or `yarn joylint` to do tasks.
 
 - Install lint tools, will auto install lint-tools and their dependencies, if you have installed, we will skip these packages.
 - Init Husky Task will help you complete husky-realted process and create a rules's script in local.
