@@ -90,7 +90,7 @@ function installDependencies(manager, cwd, dependencies, shouldAddWorkspace = fa
   } else if (manager === 'pnpm') {
     installArgs = ['add', '-D', ...data]
     if (shouldAddWorkspace) {
-      installArgs.splice(1, '-w')
+      installArgs.splice(1, 0, '-w')
     }
   } else {
     installArgs = ['install', '-D', ...data, '--no-audit', '--loglevel', 'error', '--verbose']
