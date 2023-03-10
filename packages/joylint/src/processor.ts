@@ -68,9 +68,9 @@ function installDependencies(manager, cwd, dependencies, shouldAddWorkspace = fa
       if (deps[name]) {
         log(
           pico.yellow(
-            `[Joylint]: Local package has installed ${name} with version: ${
-              deps[name]
-            }, the recommand version is ${version ?? 'latest'}.\nSkip the install task!\n`,
+            `[Joylint]: Local package has installed ${name} with version: ${deps[name]}${
+              version ? ', the recommand version is ' + version : ''
+            }.\nSkip the install task!\n`,
           ),
         )
       } else {

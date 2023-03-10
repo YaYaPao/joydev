@@ -44,11 +44,7 @@ ${pico.green(`Hi, thanks for using joylint~✨\n`)}
 
 Package version: ${pico.green(`${packageInfo.version}`)}
 
-${pico.blue(`Usage: `)} joylint <command> [options]
-
-${pico.blue(`Commands: `)}
-  install-lint        Install *lint tools.
-  husky-scripts       Install husky to enable githooks and generate executable scripts.
+${pico.blue(`Usage: `)} joylint [options]
 
 Options:
   --version                 output the script version number
@@ -58,7 +54,6 @@ ${pico.yellow(`Enjoying coding anyway!🎉`)}
 `
 
 const params = preprocessArgs(process.argv.slice(2))
-const hasEntry = typeof params.entry !== 'undefined'
 
 // 指定执行脚本路径
 const controlPath = path.join(process.cwd() || '.', './node_modules/joylint/scripts')
@@ -75,11 +70,7 @@ if (params.version) {
   process.exit(0)
 }
 
-let entryParams
-if (!hasEntry) {
-  log()
-  entryParams = await taskProcessor()
-}
+let entryParams = await taskProcessor()
 
 start({
   ...entryParams,
