@@ -1,5 +1,5 @@
 {
-  "extends": "./node_modules/joylint-conf/dist/tsconf/typescript.json",
+  "extends": "./node_modules/@nofun/joyconf/dist/tsconf/typescript.json",
   "compilerOptions": {
     "rootDir": "src",
     "outDir": "dist",

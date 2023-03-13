@@ -20,7 +20,9 @@
     "dayjs": "^1.11.2",
     "typescript": "^4.6.2"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@nofun/joyconf": "workspace:*"
+  },
   "publishConfig": {
     "access": "public"
   }
