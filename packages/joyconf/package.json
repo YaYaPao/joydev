@@ -48,5 +48,8 @@
     "stylelint-config-standard": "^29.0.0",
     "stylelint-declaration-block-no-ignored-properties": "^2.6.0",
     "vue-eslint-parser": "^9.1.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }
