@@ -20,9 +20,7 @@
     "dayjs": "^1.11.2",
     "typescript": "^4.6.2"
   },
-  "dependencies": {
-    "joylint-conf": "workspace:^1.0.8"
-  },
+  "dependencies": {},
   "publishConfig": {
     "access": "public"
   }

@@ -1,7 +1,7 @@
 {
-  "name": "joylint-conf",
+  "name": "@nofun/joyconf",
   "version": "1.0.8",
-  "description": "Configurations of JOYLINT.",
+  "description": "Configurations of JOYDEV.",
   "main": "index.js",
   "files": [
     "dist",

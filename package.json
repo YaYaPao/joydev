@@ -1,15 +1,13 @@
 {
-  "name": "dthh",
-  "version": "1.0.5",
-  "description": "Development time hh!",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "Effective tools for developing.",
   "scripts": {
     "zx": "zx scripts/zx.mjs",
     "preinstall": "npx only-allow pnpm"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Y-lonelY/cra-hh.git"
+    "url": "git+https://github.com/YaYaPao/joydev.git"
   },
   "keywords": [
     "react",
@@ -18,9 +16,9 @@
   "author": "Y-lonelY",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Y-lonelY/cra-hh/issues"
+    "url": "https://github.com/YaYaPao/joydev/issues"
   },
-  "homepage": "https://github.com/Y-lonelY/cra-hh#readme",
+  "homepage": "https://github.com/YaYaPao/joydev#readme",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-json": "^6.0.0",
