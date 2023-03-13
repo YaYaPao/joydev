@@ -76,7 +76,7 @@ export function geuuid(): string {
 }
 
 // create script tag
-export function createScript(src: string): Promise<any> {
+export function createScript(src: string): Promise<HTMLScriptElement> {
   checkBrowser()
   return new Promise(function (resolve, reject) {
     let script = document.createElement('script')
