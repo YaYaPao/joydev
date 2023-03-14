@@ -100,3 +100,12 @@ export function toggleFullScreen() {
     typeof document.exitFullscreen === 'function' && document.exitFullscreen()
   }
 }
+
+export function parents(el: HTMLElement, selector: string) {
+  const parents = []
+  // eslint-disable-next-line no-param-reassign
+  while ((el = el.parentNode) && el !== document) {
+    if (!selector || el.matches(selector)) parents.unshift(el)
+  }
+  return parents
+}
