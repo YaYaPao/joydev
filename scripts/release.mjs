@@ -40,6 +40,7 @@ const genTargetVersion = (version, type) => {
  * @summary
  * 1. 通过 --no-git-checks 来避免 publish 时 pnpm 的 git 前置检查，处理 Git work directory is not clean
  * 2. 通过 `&&` 处理 work directiry 定位问题，详见 https://stackoverflow.com/questions/19803748/change-working-directory-in-my-current-shell-context-when-running-node-script
+ * 3. ⚠️ 一定要通过 pnpm 进行发布操作，不然会将 package.json.dependencies 的 workspace:* 直接提交，pnpm 会将其转换为正确版本
  */
 export const publishPackage = async (pkg) => {
   const version = getPackageVersion(pkg)

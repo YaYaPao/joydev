@@ -1,4 +1,7 @@
-// 判断是否在服务端
+/**
+ * checkBrowser Judging whether current runtime is browser runtime?
+ * ⚠️ If not support browser, will throw an error!
+ */
 export function checkBrowser() {
   const notSupportBrowser =
     typeof window === 'undefined' ||
@@ -9,7 +12,9 @@ export function checkBrowser() {
   }
 }
 
-// addOutline Used to add outlines for all elements in page. Just for fun 🐶
+/**
+ * addOutline Used to add outlines for all elements in page. Just for fun 🐶
+ */
 export function addOutline() {
   checkBrowser()
   const elements = Array.from(document.querySelectorAll<HTMLElement>('*'))
@@ -55,7 +60,10 @@ export function exeCopy(data: string, callback: () => void | undefined) {
   }
 }
 
-// generate uuid in browser runtime
+/**
+ * geuuid generate uuid in browser runtime.
+ * @returns 36 character long v4 UUID
+ */
 export function geuuid(): string {
   checkBrowser()
   // randomUUID first.
@@ -75,19 +83,34 @@ export function geuuid(): string {
   return uuid
 }
 
-// create script tag
-export function createScript(src: string): Promise<HTMLScriptElement> {
+/**
+ * createScript Create Script tag.
+ * @param src Script source URL
+ * @param options Script tag Attributes
+ * @returns Promise<HTMLScriptElement>
+ */
+export function createScript(
+  src: string,
+  options?: Partial<HTMLScriptElement>
+): Promise<Omit<HTMLScriptElement, 'src' | 'onload' | 'onerror'>> {
   checkBrowser()
   return new Promise(function (resolve, reject) {
     let script = document.createElement('script')
     script.src = src
+    if (typeof options === 'object' && Object.keys(options)) {
+      Object.entries(options).forEach(([key, value]) => {
+        script[key] = value
+      })
+    }
     script.onload = () => resolve(script)
     script.onerror = () => reject(new Error(`${src} fail to load`))
     document.head.appendChild(script)
   })
 }
 
-// toggle fullscreen
+/**
+ * toggleFullScreen Toggle fullscreen.
+ */
 export function toggleFullScreen() {
   checkBrowser()
   const target = document.documentElement
@@ -101,9 +124,14 @@ export function toggleFullScreen() {
   }
 }
 
-export function parents(el: HTMLElement, selector: string) {
+/**
+ * parents Find target Element parent Nodes.
+ * @param el HTML Element
+ * @param selector eg. '.header', '#topo'
+ * @returns An array of Node
+ */
+export function parents(el: any, selector?: string): Element[] {
   const parents = []
-  // eslint-disable-next-line no-param-reassign
   while ((el = el.parentNode) && el !== document) {
     if (!selector || el.matches(selector)) parents.unshift(el)
   }

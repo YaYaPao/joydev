@@ -1,22 +1,23 @@
 /**
- * Verify data is array and whether has element, type guard!
+ * isValidArray Verify data is array and whether has element, type guard!
  * @param data
- * @returns
+ * @returns Boolean
  */
-function isValidArray<T>(data: unknown): data is T[] {
+export function isValidArray<T>(data: unknown): data is T[] {
   return Boolean(data) && Array.isArray(data) && data.length > 0
 }
 
 /**
- * shuffledata 对数组内元素进行洗牌
- * @param data
- * @returns
+ * shuffler shuffledata shuffle Array elements
+ * @param data Array
+ * @returns Array
  */
-function shuffledata(data: unknown): any {
+export function shuffler<T>(data: T[], returnNew?: boolean): T[] | undefined {
   if (!isValidArray(data)) return data
   let currentIndex = data.length
   let temporaryValue = null
   let randomIndex = 0
+  let target = returnNew ? [...data] : data
 
   // While there remain elements to shuffle...
   while (0 !== currentIndex) {
@@ -25,26 +26,33 @@ function shuffledata(data: unknown): any {
     currentIndex -= 1
 
     // And swap it with the current element.
-    temporaryValue = data[currentIndex]
-    data[currentIndex] = data[randomIndex]
-    data[randomIndex] = temporaryValue
+    temporaryValue = target[currentIndex]
+    target[currentIndex] = target[randomIndex]
+    target[randomIndex] = temporaryValue
   }
-  return data
+  if (returnNew) return target
+  return
 }
 
 /**
- * Compare two Array whether value is equalable(ignore element index)
+ * Compare two Array whether value is equalable
  * @param arr1
  * @param arr2
+ * @param indexMatters should we attach importance to index
  * @returns
  */
-function isArrayValueEqual(arr1: any[], arr2: any[]): boolean {
+export function isArrayValueEqual(
+  arr1: any[],
+  arr2: any[],
+  indexMatters?: boolean
+): boolean {
   if (!Array.isArray(arr1) || !Array.isArray(arr2)) {
     return false
   }
-  const crt1 = arr1.concat().sort().join()
-  const crt2 = arr2.concat().sort().join()
-  return crt1 === crt2
+  if (arr1.length !== arr2.length) return false
+  if (indexMatters) {
+    return [...arr1].join() === [...arr2].join()
+  }
+  // If we can ingore index, then sort
+  return [...arr1].sort().join() === [...arr2].sort().join()
 }
-
-export { shuffledata, isValidArray, isArrayValueEqual }

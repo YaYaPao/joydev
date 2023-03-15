@@ -1,6 +1,6 @@
 import { queryPackage } from './queryer.mjs'
 import { packages } from './config.mjs'
-import { resolve } from 'node:path'
+import path, { resolve } from 'node:path'
 
 export const buildPackage = async (pkg) => {
   try {
@@ -12,14 +12,15 @@ export const buildPackage = async (pkg) => {
     let configPath
     switch (target) {
       case 'joylint':
-        configPath = resolve(__dirname, '../packages/joylint/rollup.config.js')
-        await $`rollup -c ${configPath}`
+        configPath = resolve(__dirname, '../packages/joylint/')
         break
       case 'joyutils':
-        configPath = resolve(__dirname, '../packages/joyutils/rollup.config.js')
-        await $`rollup -c ${configPath}`
+        configPath = resolve(__dirname, '../packages/joyutils/')
         break
     }
+    await $`pnpm run --prefix ${configPath} build`
+    console.log(new Array(10).fill('-').join(''))
+    await $`tree ${path.join(configPath, 'dist')}`
     return target
   } catch (error) {
     console.log(error)
