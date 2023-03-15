@@ -1,6 +1,6 @@
 {
   "name": "@nofun/joyutils",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Elegent & utility methods to facilitate common usage in JavaScript!",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
