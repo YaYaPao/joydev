@@ -28,7 +28,7 @@ const options = defineConfig([
     output: [
       {
         dir: path.resolve(__dirname, 'dist'),
-        entryFileNames: `[name].mjs`,
+        entryFileNames: `[name].js`,
         // for export multi module
         exports: 'named',
         format: 'es',

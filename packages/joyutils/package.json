@@ -2,14 +2,14 @@
   "name": "@nofun/joyutils",
   "version": "1.0.7",
   "description": "Elegent & utility methods to facilitate common usage in JavaScript!",
-  "main": "dist/index.mjs",
+  "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "type": "module",
   "files": [
     "dist"
   ],
   "scripts": {
-    "zx": "zx scripts/control.mjs"
+    "build": "rollup -c"
   },
   "keywords": [
     "JavaScript"

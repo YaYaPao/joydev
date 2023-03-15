@@ -13,7 +13,7 @@
     "joylint": "bin/joylint.mjs"
   },
   "scripts": {
-    "zx": "zx scripts/zx.mjs"
+    "build": "rollup -c"
   },
   "repository": {
     "type": "git",
